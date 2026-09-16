@@ -1,0 +1,8 @@
+.env
+.venv/
+cache/
+results/
+CLAUDE.md
+raw_trajectory_data.csv
+__pycache__/
+*.pyc
