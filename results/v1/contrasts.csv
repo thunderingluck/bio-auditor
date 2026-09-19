@@ -1,0 +1,25 @@
+set,contrast,metric,difference,ci_lo,ci_hi,p_boot,reading
+all,B - C,balanced_accuracy,0.0033112582781457123,0.0,0.009616935483870926,0.707,"H1: trace vs no trace, same judge (M2)"
+all,B - C,false_accept_rate,0.0,0.0,0.0,1.0,"H1: trace vs no trace, same judge (M2)"
+all,B - C,false_reject_rate,-0.0066225165562914245,-0.019233870967741977,0.0,0.707,"H1: trace vs no trace, same judge (M2)"
+all,A - A',balanced_accuracy,-0.0013926480468375857,-0.04214637526061934,0.03292444880173393,0.977,H1/H3: author with vs without its trace
+all,A - A',false_accept_rate,-0.05739130434782602,-0.09341206602162777,-0.028722830183507707,0.0,H1/H3: author with vs without its trace
+all,A - A',false_reject_rate,0.06017660044150108,0.0,0.13472452385778616,0.079,H1/H3: author with vs without its trace
+all,C - A,balanced_accuracy,-0.010636337460408818,-0.030140494071255096,0.0038994329962242333,0.327,H2: quarantined auditor vs deployed self-review (headline)
+all,C - A,false_accept_rate,-0.00521739130434784,-0.013862073707370748,0.0,0.26,H2: quarantined auditor vs deployed self-review (headline)
+all,C - A,false_reject_rate,0.026490066225165587,0.0,0.06382978723404253,0.237,H2: quarantined auditor vs deployed self-review (headline)
+all,A - B,balanced_accuracy,0.007325079182263106,-0.0038994329962242376,0.021138961416645646,0.336,"descriptive only: judge, role and authorship all differ"
+all,A - B,false_accept_rate,0.00521739130434784,0.0,0.013862073707370744,0.26,"descriptive only: judge, role and authorship all differ"
+all,A - B,false_reject_rate,-0.019867549668874163,-0.04575288130519389,0.0,0.237,"descriptive only: judge, role and authorship all differ"
+natural,B - C,balanced_accuracy,0.017241379310344862,0.0,0.03922213622291015,0.707,"H1: trace vs no trace, same judge (M2)"
+natural,B - C,false_accept_rate,0.0,0.0,0.0,1.0,"H1: trace vs no trace, same judge (M2)"
+natural,B - C,false_reject_rate,-0.03448275862068961,-0.07844427244582038,0.0,0.707,"H1: trace vs no trace, same judge (M2)"
+natural,A - A',balanced_accuracy,-0.10923538230884566,-0.2392398403353167,0.03401743197278908,0.267,H1/H3: author with vs without its trace
+natural,A - A',false_accept_rate,-0.05739130434782602,-0.09341206602162777,-0.028722830183507707,0.0,H1/H3: author with vs without its trace
+natural,A - A',false_reject_rate,0.27586206896551724,0.0,0.5365853658536586,0.237,H1/H3: author with vs without its trace
+natural,C - A,balanced_accuracy,-0.03187406296851569,-0.07608143195435448,0.005729198601998891,0.707,H2: quarantined auditor vs deployed self-review (headline)
+natural,C - A,false_accept_rate,-0.00521739130434784,-0.013862073707370748,0.0,0.26,H2: quarantined auditor vs deployed self-review (headline)
+natural,C - A,false_reject_rate,0.06896551724137934,0.0,0.15688854489164072,0.707,H2: quarantined auditor vs deployed self-review (headline)
+natural,A - B,balanced_accuracy,0.01463268365817083,-0.005729198601998896,0.03703703703703709,0.707,"descriptive only: judge, role and authorship all differ"
+natural,A - B,false_accept_rate,0.00521739130434784,0.0,0.013862073707370744,0.26,"descriptive only: judge, role and authorship all differ"
+natural,A - B,false_reject_rate,-0.034482758620689724,-0.07844427244582049,0.0,0.707,"descriptive only: judge, role and authorship all differ"

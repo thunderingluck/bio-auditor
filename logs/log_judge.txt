@@ -1,0 +1,480 @@
+START 19:01:17
+gradeable=116 conditions=7 already_done=35 todo=777
+labels in labelled.csv: {'incorrect': 70, 'missing': 5, 'correct': 46}
+  bix-6-q4     truth=correct   B-floor  -> ACCEPT      conf=  85 | The answer reports specific Spearman r values with clear distinctions by metric,
+  bix-6-q4     truth=correct   B-strip  -> ACCEPT      conf=  82 | The agent thoroughly explored the dataset, computed Spearman correlations across
+  bix-6-q4     truth=correct   B-full   -> ACCEPT      conf=  82 | The agent thoroughly explored the provided sheets, tried multiple reasonable def
+  bix-6-q6     truth=correct   A-self   -> ACCEPT      conf=  72 | The Spearman correlation of ~0.022 between Acute Tcells S1 and S2 MAGeCK p-value
+  bix-6-q6     truth=correct   A-full   -> ACCEPT      conf=  82 | The agent correctly identified the relevant sheet ("MAGeCK P-values"), selected 
+  bix-6-q6     truth=correct   B-full   -> ACCEPT      conf=  85 | The agent correctly located the MAGeCK p-value columns, computed Spearman correl
+  bix-6-q4     truth=correct   A-floor  -> REJECT      conf=  72 | The agent's answer is highly inconsistent and self-contradictory, presenting mul
+  bix-6-q4     truth=correct   A-strip  -> REJECT      conf=  72 | The agent explored many approaches but never converged on a single definitive an
+  bix-6-q6     truth=correct   A-strip  -> ACCEPT      conf=  82 | The agent correctly identified the relevant sheet ("MAGeCK P-values"), extracted
+  bix-6-q6     truth=correct   B-floor  -> REJECT      conf=  60 | The reported Spearman r = 0.021605 is implausibly specific without context or me
+  bix-6-q6     truth=correct   B-strip  -> ACCEPT      conf=  90 | The agent correctly loaded the MAGeCK P-values sheet, computed Spearman correlat
+  bix-6-q4     truth=correct   A-full   -> REJECT      conf=  45 | The agent explored many approaches but never converged on a definitive, well-jus
+  bix-6-q6     truth=correct   A-floor  -> REJECT      conf=  72 | The Spearman correlation coefficient of ~0.022 seems implausibly low for biologi
+  bix-7-q1     truth=correct   B-full   -> ACCEPT      conf=  92 | The agent's analysis is thorough, uses appropriate non-parametric tests with cor
+  bix-7-q1     truth=correct   B-strip  -> ACCEPT      conf=  90 | The analysis appears methodologically sound (correct parsing, grouping, non-para
+  bix-6-q4     truth=correct   A-self   -> REJECT      conf=  45 | The analysis explored multiple interpretations and metrics without converging on
+  bix-7-q1     truth=correct   B-floor  -> REJECT      conf=  40 | The answer "0" is likely incorrect because the task asks about comparing CHIP va
+  bix-7-q1     truth=correct   A-floor  -> ACCEPT      conf=  40 | The answer of 0 is plausible if no BLM mutation status groups showed statistical
+  bix-7-q1     truth=correct   A-strip  -> ACCEPT      conf=  82 | The agent systematically loaded all CHIP exome files, correctly filtered for non
+  bix-7-q2     truth=incorrect B-full   -> ACCEPT      conf=  85 | The agent correctly identified the relevant annotation column, applied appropria
+  bix-7-q2     truth=incorrect A-strip  -> ACCEPT      conf=  82 | The agent systematically loaded all 86 CHIP sample files, correctly identified a
+  bix-7-q1     truth=correct   A-full   -> ACCEPT      conf=  72 | The agent systematically loaded all 86 CHIP exome files, counted non-reference v
+  bix-7-q2     truth=incorrect A-full   -> ACCEPT      conf=  82 | The agent systematically loaded all 86 CHIP sample files, correctly identified t
+  bix-7-q1     truth=correct   A-self   -> ACCEPT      conf=  72 | The analysis correctly loads all 86 CHIP exome files, counts non-reference varia
+  bix-7-q2     truth=incorrect A-self   -> ACCEPT      conf=  82 | The filtering logic correctly identifies and excludes intronic (`intron_variant`
+  bix-7-q2     truth=incorrect B-strip  -> ACCEPT      conf=  92 | The agent correctly parsed headers, consistently filtered the specified Sequence
+  bix-7-q2     truth=incorrect B-floor  -> REJECT      conf=  78 | The reported average (~300.26 across 86 samples) is implausibly high for CHIP va
+  bix-7-q2     truth=incorrect A-floor  -> REJECT      conf=  35 | The answer makes reasonable methodological choices about which variant types to 
+  bix-7-q3     truth=correct   B-floor  -> REJECT      conf=  65 | The answer lacks any supporting calculation, context, or description of how "ref
+  bix-7-q3     truth=correct   B-strip  -> ACCEPT      conf=  92 | The agent correctly parsed per-file zygosity columns, summed totals across 86 fi
+  bix-7-q3     truth=correct   B-full   -> ACCEPT      conf=  92 | The agent's notebook shows a clear, consistent workflow parsing 86 files, identi
+  bix-7-q3     truth=correct   A-full   -> ACCEPT      conf=  90 | The agent systematically loaded all 86 CHIP variant files, correctly identified 
+  bix-7-q3     truth=correct   A-floor  -> REJECT      conf=  32 | Without access to the specific dataset or methodology used, I cannot verify this
+  bix-7-q3     truth=correct   A-strip  -> ACCEPT      conf=  88 | The agent systematically loaded all 86 CHIP variant files, correctly identified 
+  bix-7-q3     truth=correct   A-self   -> ACCEPT      conf=  88 | The analysis correctly loads all 86 CHIP variant files, identifies the Zygosity 
+  bix-8-q1     truth=incorrect B-strip  -> ACCEPT      conf=  92 | The code correctly filtered m6A Hyper rows (680), counted those with DEG == "Up"
+  bix-8-q1     truth=incorrect B-floor  -> REJECT      conf=  35 | No data or calculation steps were provided, so the presented percentage (15.59%)
+  bix-8-q1     truth=incorrect B-full   -> ACCEPT      conf=  95 | Calculations match the provided data: 106 of 680 m6A Hyper entries are DEG = Up,
+  bix-8-q1     truth=incorrect A-strip  -> ACCEPT      conf=  95 | The agent correctly filtered for m6A Hyper genes (680 total), counted those with
+  bix-8-q1     truth=incorrect A-full   -> ACCEPT      conf=  95 | The agent correctly filtered for m6A Hyper genes (680 total), counted those with
+  bix-8-q1     truth=incorrect A-self   -> ACCEPT      conf=  90 | The code correctly filters for m6A Hyper genes (680 total), counts those with DE
+  bix-8-q2     truth=correct   B-full   -> ACCEPT      conf=  92 | The agent correctly constructed the contingency table from the dataset and appli
+  bix-8-q2     truth=correct   B-strip  -> ACCEPT      conf=  95 | The chi-square test was performed correctly on the 3x3 contingency table using c
+  bix-8-q1     truth=incorrect A-floor  -> REJECT      conf=  40 | The answer of 15.59% lacks sufficient context about the dataset being referenced
+  bix-8-q2     truth=correct   B-floor  -> REJECT      conf=  10 | There is no data, contingency table, or description of counts provided to verify
+  bix-8-q2     truth=correct   A-full   -> ACCEPT      conf=  90 | The agent correctly loaded the MeRIP-seq dataset, constructed the appropriate co
+  bix-8-q2     truth=correct   A-floor  -> REJECT      conf=  20 | The chi-square statistic of 901.4452 seems implausibly large for a typical 2×2 c
+  bix-8-q2     truth=correct   A-self   -> ACCEPT      conf=  85 | The chi-square statistic of 901.4452 was correctly computed from a properly cons
+  bix-8-q3     truth=correct   B-full   -> ACCEPT      conf=  95 | The agent correctly identified DMGs from the 'm6A' column, counted 680 hyper and
+  bix-8-q3     truth=correct   B-strip  -> ACCEPT      conf=  92 | Counts and ratio correctly computed from the provided value counts (680 hyper, 5
+  bix-8-q2     truth=correct   A-strip  -> ACCEPT      conf=  95 | The agent correctly loaded the MeRIP-seq dataset, constructed the appropriate co
+  bix-8-q3     truth=correct   B-floor  -> REJECT      conf=  80 | The agent's answer appears numerically consistent but cannot be verified from pr
+  bix-8-q3     truth=correct   A-strip  -> ACCEPT      conf=  95 | The agent correctly identified and filtered differentially methylated genes from
+  bix-8-q6     truth=incorrect B-full   -> ACCEPT      conf=  95 | The agent correctly loaded the MeRIP file, identified 680 hypermethylated transc
+  bix-8-q3     truth=correct   A-full   -> ACCEPT      conf=  95 | The agent correctly identified the methylation categories from the 'm6A' column,
+  bix-8-q6     truth=incorrect B-strip  -> ACCEPT      conf=  85 | The agent correctly loaded the provided MeRIP dataset, applied the 'm6A Hyper' l
+  bix-8-q3     truth=correct   A-self   -> ACCEPT      conf=  90 | The analysis correctly identifies and counts hypermethylated (680) and hypomethy
+  bix-8-q3     truth=correct   A-floor  -> REJECT      conf=  35 | The answer provides specific numbers (680 hypermethylated, 511 hypomethylated) b
+  bix-8-q6     truth=incorrect A-full   -> ACCEPT      conf=  82 | The agent correctly filtered for 'm6A Hyper' entries, counted unique genes by ge
+  bix-8-q6     truth=incorrect B-floor  -> REJECT      conf=  90 | The agent's answer lacks documented reproducibility and validation: it reports 2
+  FAIL bix-10-q5 A-self: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-10-q5 A-strip: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-10-q5 A-floor: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-10-q5 A-full: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-10-q6 A-self: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-10-q6 A-full: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-10-q6 A-strip: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-10-q6 A-floor: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-10-q7 A-full: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-10-q7 A-self: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-10-q7 A-floor: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-10-q7 A-strip: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-13-q1 A-self: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-13-q1 A-full: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-13-q1 A-strip: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-13-q1 A-floor: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-13-q2 A-full: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-13-q2 A-self: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-13-q2 A-strip: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-13-q2 A-floor: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-13-q3 A-full: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-13-q3 A-self: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-13-q3 A-floor: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-13-q3 A-strip: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-13-q4 A-self: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-13-q4 A-full: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-13-q4 A-strip: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-13-q4 A-floor: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-13-q5 A-self: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-13-q5 A-full: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-13-q5 A-strip: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-13-q5 A-floor: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-14-q1 A-self: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-14-q1 A-full: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-14-q1 A-floor: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-14-q1 A-strip: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-14-q2 A-self: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-14-q2 A-full: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-14-q2 A-strip: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-14-q2 A-floor: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-14-q3 A-self: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-14-q3 A-full: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-14-q3 A-strip: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-14-q3 A-floor: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-16-q1 A-self: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-16-q1 A-full: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-16-q1 A-strip: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-16-q1 A-floor: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-16-q3 A-self: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-16-q3 A-full: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-16-q3 A-strip: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-16-q3 A-floor: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-16-q4 A-self: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-16-q4 A-full: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-16-q4 A-strip: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-16-q4 A-floor: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-17-q2 A-self: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-17-q2 A-full: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-17-q2 A-strip: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-17-q2 A-floor: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-18-q1 A-self: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-18-q1 A-full: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-18-q1 A-strip: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-18-q1 A-floor: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-18-q2 A-full: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-18-q2 A-self: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-18-q2 A-strip: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-18-q2 A-floor: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-18-q3 A-self: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-18-q3 A-full: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-18-q3 A-strip: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-18-q3 A-floor: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-18-q4 A-self: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-18-q4 A-full: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-18-q4 A-floor: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-18-q4 A-strip: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-18-q5 A-self: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-18-q5 A-full: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-18-q5 A-strip: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-18-q5 A-floor: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-19-q1 A-self: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-19-q1 A-full: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-19-q1 A-strip: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-19-q1 A-floor: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-19-q2 A-self: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-19-q2 A-full: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-19-q2 A-strip: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-19-q2 A-floor: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-19-q3 A-self: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-19-q3 A-strip: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-19-q3 A-full: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-19-q3 A-floor: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-19-q4 A-self: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-19-q4 A-full: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-19-q4 A-strip: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-19-q4 A-floor: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-20-q1 A-self: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-20-q1 A-full: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-20-q1 A-strip: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-20-q1 A-floor: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-20-q2 A-self: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-20-q2 A-full: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-20-q2 A-strip: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-20-q2 A-floor: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-20-q3 A-full: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-20-q3 A-self: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-20-q3 A-strip: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-20-q3 A-floor: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-20-q4 A-full: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-20-q4 A-self: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-20-q4 A-strip: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-20-q4 A-floor: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-22-q1 A-self: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-22-q1 A-full: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-22-q1 A-floor: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-22-q1 A-strip: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-22-q2 A-self: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-22-q2 A-full: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-22-q2 A-strip: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-22-q2 A-floor: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-22-q3 A-self: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-22-q3 A-full: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-22-q3 A-strip: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-22-q3 A-floor: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-22-q4 A-self: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-22-q4 A-full: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-22-q4 A-floor: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-22-q4 A-strip: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-22-q6 A-self: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-22-q6 A-full: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-22-q6 A-floor: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-22-q6 A-strip: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-26-q3 A-self: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-26-q3 A-full: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-26-q3 A-strip: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-26-q3 A-floor: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-26-q4 A-self: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-26-q4 A-full: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-26-q4 A-strip: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-26-q4 A-floor: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-26-q5 A-self: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-26-q5 A-full: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-26-q5 A-strip: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-26-q5 A-floor: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-27-q2 A-self: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-27-q2 A-full: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-27-q2 A-strip: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-27-q2 A-floor: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-27-q5 A-self: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-27-q5 A-full: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-27-q5 A-strip: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-27-q5 A-floor: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-29-q1 A-self: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-29-q1 A-full: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-29-q1 A-strip: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-29-q1 A-floor: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-30-q1 A-self: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-30-q1 A-full: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-30-q1 A-strip: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-30-q1 A-floor: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-30-q3 A-self: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-30-q3 A-full: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-30-q3 A-strip: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-30-q3 A-floor: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-30-q5 A-self: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-30-q5 A-full: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-30-q5 A-strip: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-30-q5 A-floor: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-30-q6 A-self: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-30-q6 A-full: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-30-q6 A-strip: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-30-q6 A-floor: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-31-q1 A-self: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-31-q1 A-full: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-31-q1 A-strip: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-31-q1 A-floor: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-31-q2 A-full: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-31-q2 A-self: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-31-q2 A-strip: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-31-q2 A-floor: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-31-q3 A-self: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-31-q3 A-full: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-31-q3 A-strip: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-31-q3 A-floor: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-31-q4 A-self: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-31-q4 A-full: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-31-q4 A-strip: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-31-q4 A-floor: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-32-q2 A-self: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-32-q2 A-full: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-32-q2 A-strip: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-32-q2 A-floor: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-33-q1 A-self: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-33-q1 A-full: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-33-q1 A-strip: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-33-q1 A-floor: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-33-q6 A-self: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-33-q6 A-full: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-33-q6 A-strip: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-33-q6 A-floor: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-36-q1 A-full: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-36-q1 A-self: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-36-q1 A-strip: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-36-q1 A-floor: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-36-q3 A-self: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-36-q3 A-full: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-36-q3 A-strip: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-36-q3 A-floor: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-36-q4 A-self: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-36-q4 A-full: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-36-q4 A-strip: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-36-q4 A-floor: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-36-q5 A-self: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-36-q5 A-full: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-36-q5 A-floor: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-36-q5 A-strip: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-37-q2 A-self: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-37-q2 A-full: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-37-q2 A-strip: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-37-q2 A-floor: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-37-q3 A-self: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-37-q3 A-full: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-37-q3 A-strip: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-37-q3 A-floor: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-37-q4 A-self: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-37-q4 A-strip: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-37-q4 A-full: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-37-q4 A-floor: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-39-q2 A-self: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-39-q2 A-full: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-39-q2 A-strip: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-39-q2 A-floor: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-41-q1 A-self: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-41-q1 A-strip: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-41-q1 A-full: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-41-q1 A-floor: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-41-q3 A-self: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-41-q3 A-full: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-41-q3 A-strip: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-41-q3 A-floor: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-41-q4 A-self: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-41-q4 A-full: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-41-q4 A-strip: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-41-q4 A-floor: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-41-q5 A-self: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-41-q5 A-full: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-41-q5 A-strip: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-41-q5 A-floor: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-42-q1 A-self: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-42-q1 A-full: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-42-q1 A-strip: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-42-q1 A-floor: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-43-q2 A-self: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-43-q2 A-full: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-43-q2 A-strip: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-43-q2 A-floor: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-43-q3 A-strip: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-43-q3 A-full: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-43-q3 A-self: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-43-q3 A-floor: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-43-q4 A-self: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-43-q4 A-full: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-43-q4 A-strip: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-43-q4 A-floor: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-46-q1 A-full: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-46-q1 A-self: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-46-q1 A-strip: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-46-q1 A-floor: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-46-q4 A-self: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-46-q4 A-full: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-46-q4 A-strip: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-46-q4 A-floor: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-47-q2 A-full: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-47-q2 A-self: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-47-q2 A-strip: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-47-q2 A-floor: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-47-q3 A-self: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-47-q3 A-full: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-47-q3 A-strip: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-47-q3 A-floor: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-43-q4 B-full: RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-5-mini-2025-08-07 (for limit gpt-5-mini) in organization org-eMFuUywJNg59bklaLXhvX
+  FAIL bix-49-q1 A-self: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-49-q1 A-full: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-49-q1 A-strip: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-49-q1 A-floor: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-49-q2 A-self: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-49-q2 A-full: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-49-q2 A-strip: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-49-q2 A-floor: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-49-q3 A-self: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-49-q3 A-full: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-49-q3 A-strip: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-49-q3 A-floor: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-46-q4 B-strip: RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-5-mini-2025-08-07 (for limit gpt-5-mini) in organization org-eMFuUywJNg59bklaLXhvX
+  FAIL bix-49-q4 A-self: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-49-q1 B-full: RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-5-mini-2025-08-07 (for limit gpt-5-mini) in organization org-eMFuUywJNg59bklaLXhvX
+  FAIL bix-49-q4 A-full: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-49-q4 A-strip: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-49-q4 A-floor: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-49-q5 A-self: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-49-q5 A-full: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-49-q5 A-floor: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-49-q5 A-strip: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-49-q5 B-floor: RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-5-mini-2025-08-07 (for limit gpt-5-mini) in organization org-eMFuUywJNg59bklaLXhvX
+  FAIL bix-51-q1 A-self: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-51-q1 A-full: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-51-q1 A-strip: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-51-q1 A-floor: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-46-q4 B-full: RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-5-mini-2025-08-07 (for limit gpt-5-mini) in organization org-eMFuUywJNg59bklaLXhvX
+  FAIL bix-49-q5 B-strip: RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-5-mini-2025-08-07 (for limit gpt-5-mini) in organization org-eMFuUywJNg59bklaLXhvX
+  FAIL bix-49-q4 B-full: RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-5-mini-2025-08-07 (for limit gpt-5-mini) in organization org-eMFuUywJNg59bklaLXhvX
+  FAIL bix-51-q2 A-self: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-51-q2 A-full: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-51-q2 A-strip: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-51-q2 A-floor: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-49-q4 B-floor: RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-5-mini-2025-08-07 (for limit gpt-5-mini) in organization org-eMFuUywJNg59bklaLXhvX
+  FAIL bix-51-q3 A-self: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-51-q3 A-full: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-51-q3 A-strip: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-51-q3 A-floor: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-51-q4 A-self: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-51-q2 B-strip: RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-5-mini-2025-08-07 (for limit gpt-5-mini) in organization org-eMFuUywJNg59bklaLXhvX
+  FAIL bix-51-q4 A-strip: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-51-q4 A-full: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-51-q4 A-floor: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-51-q5 A-self: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-51-q5 A-full: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-51-q5 A-strip: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-51-q5 A-floor: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-51-q3 B-full: RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-5-mini-2025-08-07 (for limit gpt-5-mini) in organization org-eMFuUywJNg59bklaLXhvX
+  FAIL bix-51-q6 A-full: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-51-q6 A-self: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-51-q6 A-strip: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-51-q6 A-floor: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-51-q8 A-self: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-51-q8 A-full: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-51-q8 A-floor: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-51-q8 A-strip: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-52-q1 A-strip: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-52-q1 A-self: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-52-q1 A-full: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-52-q1 A-floor: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-52-q2 A-self: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-52-q2 A-full: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-52-q2 A-strip: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-52-q2 A-floor: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-52-q3 A-self: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-52-q3 A-floor: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-52-q3 A-strip: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-52-q3 A-full: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-52-q5 A-self: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-52-q5 A-full: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-52-q5 A-strip: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-52-q5 A-floor: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-52-q7 A-self: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-52-q7 A-full: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-52-q7 A-strip: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-52-q7 A-floor: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-53-q3 A-self: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-53-q3 A-full: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-52-q7 B-floor: RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-5-mini-2025-08-07 (for limit gpt-5-mini) in organization org-eMFuUywJNg59bklaLXhvX
+  FAIL bix-53-q3 A-strip: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-53-q3 A-floor: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-53-q4 A-self: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-53-q4 A-full: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-53-q4 A-strip: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-53-q4 A-floor: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-53-q3 B-floor: RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-5-mini-2025-08-07 (for limit gpt-5-mini) in organization org-eMFuUywJNg59bklaLXhvX
+  FAIL bix-53-q5 A-self: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-53-q5 A-full: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-52-q2 B-full: RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-5-mini-2025-08-07 (for limit gpt-5-mini) in organization org-eMFuUywJNg59bklaLXhvX
+  FAIL bix-53-q5 A-strip: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-53-q5 A-floor: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-53-q3 B-strip: RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-5-mini-2025-08-07 (for limit gpt-5-mini) in organization org-eMFuUywJNg59bklaLXhvX
+  FAIL bix-53-q3 B-full: RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-5-mini-2025-08-07 (for limit gpt-5-mini) in organization org-eMFuUywJNg59bklaLXhvX
+  FAIL bix-54-q1 A-self: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-54-q1 A-strip: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-54-q1 A-full: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-54-q1 A-floor: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-54-q2 A-self: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-54-q2 A-full: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-54-q2 A-strip: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-54-q2 A-floor: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-54-q1 B-floor: RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-5-mini-2025-08-07 (for limit gpt-5-mini) in organization org-eMFuUywJNg59bklaLXhvX
+  FAIL bix-54-q3 A-self: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-54-q2 B-floor: RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-5-mini-2025-08-07 (for limit gpt-5-mini) in organization org-eMFuUywJNg59bklaLXhvX
+  FAIL bix-54-q3 A-full: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-54-q3 A-strip: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-54-q3 A-floor: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-53-q4 B-full: RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-5-mini-2025-08-07 (for limit gpt-5-mini) in organization org-eMFuUywJNg59bklaLXhvX
+  FAIL bix-54-q4 A-self: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-54-q4 A-full: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-54-q4 A-strip: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-52-q7 B-full: RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-5-mini-2025-08-07 (for limit gpt-5-mini) in organization org-eMFuUywJNg59bklaLXhvX
+  FAIL bix-54-q4 A-floor: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-54-q5 A-full: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-54-q5 A-strip: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-54-q5 A-self: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-54-q5 A-floor: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-54-q4 B-floor: RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-5-mini-2025-08-07 (for limit gpt-5-mini) in organization org-eMFuUywJNg59bklaLXhvX
+  FAIL bix-54-q6 A-self: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-54-q6 A-full: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-54-q6 A-strip: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-54-q5 B-floor: RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-5-mini-2025-08-07 (for limit gpt-5-mini) in organization org-eMFuUywJNg59bklaLXhvX
+  FAIL bix-54-q6 A-floor: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-54-q1 B-full: RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-5-mini-2025-08-07 (for limit gpt-5-mini) in organization org-eMFuUywJNg59bklaLXhvX
+  FAIL bix-54-q7 A-self: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-54-q6 B-floor: RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-5-mini-2025-08-07 (for limit gpt-5-mini) in organization org-eMFuUywJNg59bklaLXhvX
+  FAIL bix-54-q7 A-strip: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-54-q4 B-strip: RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-5-mini-2025-08-07 (for limit gpt-5-mini) in organization org-eMFuUywJNg59bklaLXhvX
+  FAIL bix-54-q7 A-full: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-54-q4 B-full: RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-5-mini-2025-08-07 (for limit gpt-5-mini) in organization org-eMFuUywJNg59bklaLXhvX
+  FAIL bix-54-q7 A-floor: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API.
+  FAIL bix-54-q5 B-strip: RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-5-mini-2025-08-07 (for limit gpt-5-mini) in organization org-eMFuUywJNg59bklaLXhvX
+done: ok=363 fail=414 -> /home/evag3/bio-auditor/results/judgments.csv
+EXIT=0
+END 19:03:07

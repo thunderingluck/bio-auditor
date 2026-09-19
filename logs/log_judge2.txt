@@ -1,0 +1,66 @@
+START 19:03:54
+gradeable=116 conditions=7 already_done=398 todo=414
+labels in labelled.csv: {'incorrect': 70, 'missing': 5, 'correct': 46}
+  bix-10-q5    truth=incorrect A-full   -> ACCEPT      conf=  72 | The agent correctly filtered for healthcare workers seeing >100 patients, merged
+  bix-10-q5    truth=incorrect A-strip  -> ACCEPT      conf=  72 | The agent correctly filtered for healthcare workers seeing >100 patients (n=36),
+  bix-10-q5    truth=incorrect A-floor  -> ACCEPT      conf=  52 | The p-values reported are plausible for a small subgroup analysis (n=36) and the
+  bix-10-q5    truth=incorrect A-self   -> ACCEPT      conf=  72 | The analysis correctly filters the subgroup (n=36, >100 patients seen), merges w
+  bix-10-q6    truth=incorrect A-floor  -> REJECT      conf=  35 | The p-value of 0.0727 is plausible for this type of subgroup analysis, but witho
+  bix-10-q6    truth=incorrect A-full   -> ACCEPT      conf=  72 | The agent correctly filtered for 1-50 patients, merged with COVID-19 AE data, ha
+  bix-10-q6    truth=incorrect A-self   -> ACCEPT      conf=  72 | The methodology is sound—filtering to 1-50 patients, merging with COVID-19 AE da
+  bix-10-q6    truth=incorrect A-strip  -> ACCEPT      conf=  72 | The agent correctly filtered for healthcare workers seeing 1-50 patients, merged
+  bix-10-q7    truth=incorrect A-floor  -> REJECT      conf=  20 | The answer is internally inconsistent, presenting two contradictory estimates (4
+  bix-10-q7    truth=incorrect A-self   -> REJECT      conf=  45 | The analysis produces inconsistent results across different model specifications
+  bix-10-q7    truth=incorrect A-strip  -> ACCEPT      conf=  52 | The analysis correctly implements logistic regression controlling for BCG vaccin
+  bix-10-q7    truth=incorrect A-full   -> ACCEPT      conf=  52 | The agent performed a thorough logistic regression analysis controlling for BCG 
+  bix-13-q1    truth=incorrect A-self   -> ACCEPT      conf=  72 | The DESeq2 analysis is correctly set up with an appropriate design (~Media + Str
+  bix-13-q1    truth=incorrect A-full   -> ACCEPT      conf=  72 | The methodology is sound (DESeq2 with ~Media + Strain design, correct cutoffs ap
+  bix-13-q1    truth=incorrect A-strip  -> ACCEPT      conf=  78 | The agent correctly performed DESeq2 differential expression analysis with appro
+  bix-13-q1    truth=incorrect A-floor  -> REJECT      conf=  25 | The answer makes assumptions about the experimental design (DESeq2 with ~Media +
+  bix-13-q2    truth=incorrect A-self   -> ACCEPT      conf=  72 | The DESeq2 analysis was correctly set up with JBX1 as the reference strain, an a
+  bix-13-q2    truth=incorrect A-strip  -> ACCEPT      conf=  85 | The agent correctly implemented DESeq2 with an appropriate design formula (~Medi
+  bix-13-q2    truth=incorrect A-full   -> ACCEPT      conf=  85 | The agent correctly set up DESeq2 with an appropriate design formula (~Media + S
+  bix-13-q3    truth=incorrect A-self   -> ACCEPT      conf=  82 | The DESeq2 analysis was correctly implemented with the specified design formula 
+  bix-13-q2    truth=incorrect A-floor  -> REJECT      conf=  20 | Without access to the original data, DESeq2 analysis code, and intermediate resu
+  bix-13-q3    truth=incorrect A-full   -> ACCEPT      conf=  88 | The agent correctly set up DESeq2 with the design formula `~ Replicate + Strain 
+  bix-13-q3    truth=incorrect A-strip  -> ACCEPT      conf=  92 | The agent correctly used DESeq2 with the design formula `~ Replicate + Strain + 
+  bix-13-q3    truth=incorrect A-floor  -> ACCEPT      conf=  62 | The answer of 4 genes with dispersion estimates below 1e-05 prior to shrinkage i
+  bix-13-q4    truth=incorrect A-self   -> ACCEPT      conf=  72 | The DESeq2 analysis was correctly implemented with strain 1 as reference, media 
+  bix-13-q4    truth=incorrect A-strip  -> ACCEPT      conf=  72 | The analysis correctly uses DESeq2 with a ~ Media + Strain design, sets JBX1 as 
+  bix-13-q4    truth=incorrect A-floor  -> REJECT      conf=  25 | The answer lacks sufficient methodological detail to verify correctness, as the 
+  bix-13-q4    truth=incorrect A-full   -> REJECT      conf=  30 | The agent's analysis uses all three media conditions together in a single DESeq2
+  bix-13-q5    truth=incorrect A-self   -> ACCEPT      conf=  82 | The DESeq2 analysis was correctly implemented with an appropriate design formula
+  bix-13-q5    truth=incorrect A-strip  -> ACCEPT      conf=  85 | The agent correctly implemented DESeq2 with appropriate design (~ Media + Strain
+  bix-13-q5    truth=incorrect A-full   -> ACCEPT      conf=  85 | The agent correctly implemented DESeq2 with an appropriate design formula (~Medi
+  bix-13-q5    truth=incorrect A-floor  -> REJECT      conf=  20 | The answer of 452 cannot be verified without knowing the specific dataset, DESeq
+  bix-14-q1    truth=incorrect A-self   -> ACCEPT      conf=  82 | The analysis correctly identifies BLM carriers from the Trio Status file, matche
+  bix-14-q1    truth=incorrect A-strip  -> ACCEPT      conf=  82 | The agent correctly identified BLM mutation carriers, matched them to their CHIP
+  bix-14-q1    truth=incorrect A-full   -> ACCEPT      conf=  82 | The agent correctly identified BLM carriers from the Trio Status file, matched t
+  bix-14-q1    truth=incorrect A-floor  -> REJECT      conf=  20 | The answer provides specific numbers (30/108) without showing the data source or
+  bix-14-q2    truth=incorrect A-self   -> ACCEPT      conf=  72 | The analysis correctly identifies the two groups (Parental Controls = BLM Carrie
+  bix-14-q2    truth=incorrect A-floor  -> REJECT      conf=  35 | The agent's identification of "Parental Controls" as carriers (BLM Mutation Stat
+  bix-14-q2    truth=incorrect A-full   -> ACCEPT      conf=  72 | The agent systematically loaded all CHIP variant files, correctly identified the
+  bix-14-q2    truth=incorrect A-strip  -> REJECT      conf=  35 | The agent identified "Parental Controls" as the Carrier group (BLM carrier paren
+  bix-14-q3    truth=incorrect A-strip  -> ACCEPT      conf=  88 | The agent systematically loaded all 86 sample files, correctly filtered out Refe
+  bix-14-q3    truth=incorrect A-full   -> ACCEPT      conf=  85 | The agent systematically loaded all 86 Excel files, correctly identified and fil
+  bix-14-q3    truth=incorrect A-floor  -> REJECT      conf=  32 | The answer of 4997 seems plausible for a genomic filtering pipeline but cannot b
+  bix-14-q3    truth=incorrect A-self   -> ACCEPT      conf=  90 | The filtering steps are logical and correctly applied: all 57,258 variants were 
+  bix-16-q1    truth=incorrect A-self   -> ACCEPT      conf=  90 | CCND1 having the strongest negative Spearman correlation (-0.629) between expres
+  bix-16-q1    truth=incorrect A-full   -> ACCEPT      conf=  95 | The agent systematically loaded both datasets, found common cell lines and genes
+  bix-16-q1    truth=incorrect A-strip  -> ACCEPT      conf=  95 | The agent systematically loaded both expression and CRISPR essentiality datasets
+  bix-16-q1    truth=incorrect A-floor  -> ACCEPT      conf=  62 | CCND1 (Cyclin D1) is a biologically plausible answer as a gene whose high expres
+  bix-16-q3    truth=incorrect A-full   -> ACCEPT      conf=  82 | The agent followed a rigorous methodology: loading both datasets, aligning on co
+  bix-16-q3    truth=incorrect A-self   -> ACCEPT      conf=  82 | The analysis correctly loads both datasets, aligns on common cell lines and gene
+  bix-16-q3    truth=incorrect A-strip  -> ACCEPT      conf=  90 | The agent followed a rigorous methodology: loading both datasets, aligning on co
+  bix-16-q3    truth=incorrect A-floor  -> REJECT      conf=  35 | The answer of 0 seems plausible but suspicious without knowing the dataset, as t
+  bix-16-q4    truth=correct   A-self   -> ACCEPT      conf=  72 | The methodology is sound—Spearman rank correlations were computed across matched
+  bix-16-q4    truth=correct   A-full   -> ACCEPT      conf=  82 | The methodology is sound and well-executed: both datasets are properly aligned o
+  bix-16-q4    truth=correct   A-strip  -> ACCEPT      conf=  82 | The methodology is sound and well-executed: the agent correctly identified commo
+  bix-16-q4    truth=correct   A-floor  -> ACCEPT      conf=  72 | The methodology is sound (Spearman correlation with Benjamini-Hochberg FDR corre
+  bix-17-q2    truth=correct   A-self   -> ACCEPT      conf=  72 | The methodology is sound: BLM carriers were correctly identified, exclusion filt
+  bix-17-q2    truth=correct   A-full   -> ACCEPT      conf=  72 | The agent systematically identified BLM mutation carriers, mapped them to CHIP f
+  bix-17-q2    truth=correct   A-strip  -> ACCEPT      conf=  72 | The agent correctly identified BLM carriers, applied the specified exclusion fil
+  bix-17-q2    truth=correct   A-floor  -> ACCEPT      conf=  62 | The answer of 2 is plausible for a median number of somatic CHIP variants among 
+done: ok=414 fail=0 -> /home/evag3/bio-auditor/results/judgments.csv
+EXIT=0
+END 19:08:51

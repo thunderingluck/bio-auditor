@@ -1,0 +1,25 @@
+contrast,metric,difference,ci_lo,ci_hi,p_boot,reading
+A-self - A-full,wrong_answer_acceptance_rate,0.04285714285714293,-0.05882352941176472,0.13414634146341464,0.4912,PRIMARY (H1): own prior turn vs the same work quoted
+A-self - A-full,correct_answer_acceptance_rate,0.021739130434782594,0.0,0.07692307692307687,0.72,PRIMARY (H1): own prior turn vs the same work quoted
+A-self - A-full,balanced_accuracy,-0.010559006211180222,-0.060810810810810745,0.04479779411764705,0.7688,PRIMARY (H1): own prior turn vs the same work quoted
+A-full - A-strip,wrong_answer_acceptance_rate,-0.04285714285714293,-0.12329189920514126,0.037986854917234573,0.3968,"argument effect, M1"
+A-full - A-strip,correct_answer_acceptance_rate,-0.021739130434782594,-0.07692307692307687,0.0,0.72,"argument effect, M1"
+A-full - A-strip,balanced_accuracy,0.010559006211180222,-0.03749999999999998,0.05555555555555547,0.7044,"argument effect, M1"
+B-full - B-strip,wrong_answer_acceptance_rate,-0.02857142857142858,-0.08064516129032262,0.0,0.2504,"argument effect, M2"
+B-full - B-strip,correct_answer_acceptance_rate,0.0,0.0,0.0,1.0,"argument effect, M2"
+B-full - B-strip,balanced_accuracy,0.014285714285714235,0.0,0.040322580645161255,0.2504,"argument effect, M2"
+A-full - B-full,wrong_answer_acceptance_rate,-0.11428571428571432,-0.2222222222222222,0.0,0.06,"judge identity, argument present"
+A-full - B-full,correct_answer_acceptance_rate,-0.04347826086956519,-0.11907142857142858,0.0,0.2596,"judge identity, argument present"
+A-full - B-full,balanced_accuracy,0.03540372670807468,-0.02941176470588236,0.09647536047911978,0.3064,"judge identity, argument present"
+A-strip - B-strip,wrong_answer_acceptance_rate,-0.09999999999999998,-0.19697503201024333,-0.02172756706753022,0.0096,"judge identity, argument absent"
+A-strip - B-strip,correct_answer_acceptance_rate,-0.021739130434782594,-0.07578671328671331,0.0,0.74,"judge identity, argument absent"
+A-strip - B-strip,balanced_accuracy,0.03913043478260869,-0.007442344042669808,0.08943508817155428,0.11,"judge identity, argument absent"
+A-floor - A-strip,wrong_answer_acceptance_rate,-0.6000000000000001,-0.7123287671232876,-0.47540983606557374,0.0,does M1's stripped judge use the notebook
+A-floor - A-strip,correct_answer_acceptance_rate,-0.6304347826086957,-0.7307692307692308,-0.5,0.0,does M1's stripped judge use the notebook
+A-floor - A-strip,balanced_accuracy,-0.01521739130434785,-0.08429276315789469,0.06232166811331168,0.6996,does M1's stripped judge use the notebook
+B-floor - B-strip,wrong_answer_acceptance_rate,-0.9428571428571428,-0.9855124223602485,-0.8970588235294118,0.0,does M2's stripped judge use the notebook
+B-floor - B-strip,correct_answer_acceptance_rate,-0.8478260869565217,-0.9743589743589743,-0.7333333333333334,0.0,does M2's stripped judge use the notebook
+B-floor - B-strip,balanced_accuracy,0.047515527950310554,-0.016666666666666663,0.10566273840730364,0.1728,does M2's stripped judge use the notebook
+A-self - B-strip,wrong_answer_acceptance_rate,-0.09999999999999998,-0.16666666666666663,-0.04225352112676062,0.0004,"CONFOUNDED end-to-end: judge, framing and argument all differ. NOT evidence for H1"
+A-self - B-strip,correct_answer_acceptance_rate,-0.021739130434782594,-0.07578671328671331,0.0,0.74,"CONFOUNDED end-to-end: judge, framing and argument all differ. NOT evidence for H1"
+A-self - B-strip,balanced_accuracy,0.03913043478260869,0.0009067614810106459,0.07692307692307687,0.0464,"CONFOUNDED end-to-end: judge, framing and argument all differ. NOT evidence for H1"

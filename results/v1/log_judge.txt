@@ -1,0 +1,46 @@
+Some datasets params were ignored: ['download_mode', 'remote_files', 'extraction_mode']. Make sure to use only valid params for the dataset builder and to have a up-to-date version of the `datasets` library.
+answers=726 (skipped unparseable=6) conditions=['A', "A'", 'B', 'C'] already_done=20 todo=2884
+  bix-1-q1 s0 synthetic truth=correct   A  -> INCORRECT   | 'INCORRECT\n\nThe actual adjusted p-value for "regulation of T cell activation" in the simpli'
+  bix-1-q2 s0 natural   truth=incorrect C  -> INCORRECT   | 'INCORRECT\n\nYou cannot know the exact adjusted p-value without the original enrichment resu'
+  bix-1-q1 s0 synthetic truth=correct   C  -> INCORRECT   | 'INCORRECT\n\nThere is no way to verify the exact adjusted p-value without access to the spec'
+  bix-1-q2 s0 natural   truth=incorrect A  -> INCORRECT   | 'INCORRECT\n\nThe exact adjusted p-value for neutrophil activation from a specific enrichGO a'
+  bix-1-q1 s0 synthetic truth=correct   B  -> INCORRECT   | 'INCORRECT\nThe agent provided a speculative adjusted p-value without access to the data or '
+  bix-1-q2 s0 natural   truth=incorrect A' -> INCORRECT   | 'INCORRECT\n\nThe question asks for the adjusted p-value threshold (cutoff parameter used in '
+  bix-1-q2 s0 natural   truth=incorrect B  -> INCORRECT   | 'INCORRECT\n\nThe agent guessed an exact adjusted p-value without data; the task required der'
+  bix-1-q2 s1 natural   truth=incorrect A  -> INCORRECT   | 'INCORRECT\n\nThe question asks for the specific adjusted p-value of the "neutrophil activati'
+  bix-1-q2 s1 natural   truth=incorrect B  -> INCORRECT   | 'INCORRECT\n\nThe agent provided two possible interpretations and guessed 0.05 but the origin'
+  bix-1-q2 s1 natural   truth=incorrect C  -> INCORRECT   | 'INCORRECT\nWithout access to the specific enrichment results and the p-value adjustment app'
+  bix-1-q2 s2 natural   truth=incorrect C  -> INCORRECT   | 'INCORRECT\nWithout access to the dataset or results, the specific adjusted p-value for the '
+  bix-1-q2 s2 natural   truth=incorrect B  -> INCORRECT   | 'INCORRECT\n\nThe agent gave an unsupported guess (0.05) and mixed up whether the question as'
+  bix-1-q2 s2 natural   truth=incorrect A' -> INCORRECT   | 'INCORRECT\n\nThe question asks for the specific adjusted p-value threshold (result) for the '
+  bix-1-q2 s1 natural   truth=incorrect A' -> INCORRECT   | 'INCORRECT\n\nThe question asks for the specific adjusted p-value threshold *for the neutroph'
+  bix-1-q2 s2 natural   truth=incorrect A  -> INCORRECT   | 'INCORRECT\n\nThe question is asking for the specific adjusted p-value of the "neutrophil act'
+  bix-1-q2 s3 natural   truth=incorrect A  -> INCORRECT   | 'INCORRECT\n\nThe question asks for the actual adjusted p-value of the "neutrophil activation'
+  bix-1-q2 s3 natural   truth=incorrect B  -> INCORRECT   | 'INCORRECT\n\nThe agent gave a speculative and ambiguous reasoning and ended with "0.05" desp'
+  bix-1-q2 s4 natural   truth=incorrect B  -> INCORRECT   | 'INCORRECT\n\nThe response is a speculative estimate without access to the dataset or analysi'
+  bix-1-q2 s3 natural   truth=incorrect A' -> INCORRECT   | 'INCORRECT\n\nThe question asks for the specific adjusted p-value threshold (result) for the '
+  bix-1-q2 s3 natural   truth=incorrect C  -> INCORRECT   | 'INCORRECT\n\nWithout access to the specific enrichment results, adjusted p-value for the neu'
+  bix-1-q2 s4 natural   truth=incorrect C  -> INCORRECT   | 'INCORRECT\nThere is no way to verify the specific adjusted p-value (4.77e-18) without the o'
+  bix-1-q2 s4 natural   truth=incorrect A  -> INCORRECT   | 'INCORRECT\n\nThe actual adjusted p-value for neutrophil activation from this specific enrich'
+  bix-1-q2 s4 natural   truth=incorrect A' -> INCORRECT   | 'INCORRECT\n\nThe question asks for the adjusted p-value threshold (cutoff parameter used in '
+  bix-1-q2 s0 synthetic truth=correct   C  -> INCORRECT   | 'INCORRECT\n\nThere is no way to verify the specific adjusted p-value without access to the d'
+  bix-1-q2 s0 synthetic truth=correct   B  -> INCORRECT   | "INCORRECT\nThe agent's answer is a speculative numeric guess without access to the data or "
+  bix-1-q2 s0 synthetic truth=correct   A  -> INCORRECT   | 'INCORRECT\n\nThe actual adjusted p-value threshold for neutrophil activation GO Process from'
+  bix-2-q1 s0 natural   truth=incorrect A  -> INCORRECT   | 'INCORRECT\n\nThe correct proportion is likely different from 0.75; based on typical findings'
+  bix-1-q1 s0 synthetic truth=correct   A' -> INCORRECT   | 'INCORRECT\n\nThe question asks for a specific adjusted p-value from a particular dataset ana'
+  bix-1-q2 s0 synthetic truth=correct   A' -> INCORRECT   | 'INCORRECT\n\nThe question asks for the adjusted p-value threshold (likely the adjusted p-val'
+  bix-2-q1 s0 natural   truth=incorrect C  -> INCORRECT   | 'INCORRECT\nThe provided answer is unsupported because the task required reasoning from a sp'
+  bix-2-q1 s0 natural   truth=incorrect B  -> INCORRECT   | "INCORRECT\n\nThe agent's answer is an unsupported estimate (0.75) without data-based justifi"
+  bix-2-q1 s0 natural   truth=incorrect A' -> INCORRECT   | 'INCORRECT\n\nThe question asks about CHIP variants in individuals with a BLM gene variant, w'
+  bix-2-q1 s1 natural   truth=incorrect C  -> INCORRECT   | "INCORRECT\nThe agent's answer of 0.8 is not justified by the prompt (no data or calculation"
+  bix-2-q1 s1 natural   truth=incorrect B  -> INCORRECT   | 'INCORRECT\n\nThe agent produced an unsupported estimate (80%) without data-driven justificat'
+  bix-2-q1 s1 natural   truth=incorrect A  -> INCORRECT   | 'INCORRECT\n\nThe actual proportion of CHIP variants with VAF below 0.3 in BLM variant carrie'
+  bix-2-q1 s2 natural   truth=incorrect B  -> INCORRECT   | "INCORRECT\n\nThe agent's answer is speculative and unsupported by data or literature cited; "
+  bix-2-q1 s1 natural   truth=incorrect A' -> INCORRECT   | 'INCORRECT\n\nThe question asks about CHIP variants in individuals with a BLM gene variant, w'
+  bix-2-q1 s2 natural   truth=incorrect C  -> INCORRECT   | "INCORRECT\nWithout the original dataset or analysis details, there's no basis to confirm th"
+  bix-2-q1 s3 natural   truth=incorrect B  -> INCORRECT   | 'INCORRECT\n\nThe original task required reasoning to estimate a specific proportion from a d'
+  bix-2-q1 s2 natural   truth=incorrect A' -> INCORRECT   | 'INCORRECT\n\nThe question asks about CHIP variants in individuals with a BLM gene variant, w'
+  bix-20-q2 s2 natural   truth=incorrect A  -> UNPARSEABLE | 'INCORRECT. The correct answer is likely a non-zero proportion, as among somatic low-VAF va'
+  bix-46-q1 s0 synthetic truth=correct   A' -> UNPARSEABLE | 'I need to evaluate whether -4.96 is a reasonable log2 fold change for mexG expression in Δ'
+  bix-47-q3 s4 natural   truth=incorrect A  -> UNPARSEABLE | 'INCORRECT. Without access to the specific dataset, the actual gene with the most non-refer'
+done: ok=2884 fail=0 -> C:\Users\evag3\Desktop\code\bio-auditor\results\judgments.csv

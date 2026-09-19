@@ -1,0 +1,39 @@
+question_id,sample_idx,eval_mode,answer_raw,ideal,label,norm_note
+bix-3-q2,1,range_verifier,"(0.047, 0.053)","(0.03,0.04)",unparseable,"could not coerce '(0.047, 0.053)' to a number"
+bix-3-q2,0,range_verifier,"(0.032, 0.042)","(0.03,0.04)",unparseable,"could not coerce '(0.032, 0.042)' to a number"
+bix-3-q2,2,range_verifier,"(0.047, 0.053)","(0.03,0.04)",unparseable,"could not coerce '(0.047, 0.053)' to a number"
+bix-3-q2,3,range_verifier,"(0.063, 0.071)","(0.03,0.04)",unparseable,"could not coerce '(0.063, 0.071)' to a number"
+bix-3-q2,4,range_verifier,"(0.096, 0.104)","(0.03,0.04)",unparseable,"could not coerce '(0.096, 0.104)' to a number"
+bix-6-q5,0,str_verifier,100,25%,incorrect,numeric coercion
+bix-6-q5,2,str_verifier,100,25%,incorrect,numeric coercion
+bix-6-q5,1,str_verifier,100,25%,incorrect,numeric coercion
+bix-6-q5,3,str_verifier,100,25%,incorrect,numeric coercion
+bix-6-q5,4,str_verifier,100,25%,incorrect,numeric coercion
+bix-8-q1,1,str_verifier,35,15.6%,incorrect,numeric coercion
+bix-8-q1,0,str_verifier,35,15.6%,incorrect,numeric coercion
+bix-8-q1,2,str_verifier,40,15.6%,incorrect,numeric coercion
+bix-8-q1,3,str_verifier,40,15.6%,incorrect,numeric coercion
+bix-8-q1,4,str_verifier,35,15.6%,incorrect,numeric coercion
+bix-13-q1,0,str_verifier,25,10.6%,incorrect,numeric coercion
+bix-13-q1,1,str_verifier,25,10.6%,incorrect,numeric coercion
+bix-13-q1,3,str_verifier,25,10.6%,incorrect,numeric coercion
+bix-13-q1,2,str_verifier,50,10.6%,incorrect,numeric coercion
+bix-13-q1,4,str_verifier,25,10.6%,incorrect,numeric coercion
+bix-13-q4,2,str_verifier,10,8.1%,incorrect,numeric coercion
+bix-13-q4,0,str_verifier,10,8.1%,incorrect,numeric coercion
+bix-13-q4,1,str_verifier,10.5,8.1%,incorrect,numeric coercion
+bix-13-q4,4,str_verifier,10,8.1%,incorrect,numeric coercion
+bix-13-q4,3,str_verifier,10,8.1%,incorrect,numeric coercion
+bix-14-q2,2,range_verifier,10%,"(0.2, 0.3)",incorrect,stripped %
+bix-14-q2,4,range_verifier,5%,"(0.2, 0.3)",incorrect,stripped %
+bix-20-q1,1,range_verifier,0%,"(0.80, 1.00)",incorrect,stripped %
+bix-30-q1,0,str_verifier,30,28%,incorrect,numeric coercion
+bix-30-q1,2,str_verifier,20,28%,incorrect,numeric coercion
+bix-30-q1,1,str_verifier,20,28%,incorrect,numeric coercion
+bix-30-q1,4,str_verifier,50%,28%,incorrect,numeric coercion; answer: stripped %
+bix-30-q1,3,str_verifier,40%,28%,incorrect,numeric coercion; answer: stripped %
+bix-31-q2,4,range_verifier,NA,"(-0.45, -0.35)",unparseable,could not coerce 'NA' to a number
+bix-36-q5,0,str_verifier,normal,Normal,correct,basic normalisation
+bix-36-q5,1,str_verifier,normal,Normal,correct,basic normalisation
+bix-36-q5,2,str_verifier,normal,Normal,correct,basic normalisation
+bix-52-q7,0,str_verifier,19159,"19,159",correct,numeric coercion

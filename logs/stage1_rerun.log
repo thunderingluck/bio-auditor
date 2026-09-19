@@ -1,0 +1,14 @@
+START 02:54:05
+/home/evag3/bixbench/.venv/lib/python3.13/site-packages/google_crc32c/__init__.py:29: RuntimeWarning: As the c extension couldn't be imported, `google-crc32c` is using a pure python implementation that is significantly slower. If possible, please configure a c build environment and compile the extension
+  warnings.warn(_SLOW_CRC32C_WARNING, RuntimeWarning)
+2026-09-17 02:54:08,900 - bixbench.generate_trajectories - INFO - Loading configuration from: bioauditor_config.yaml
+Some datasets params were ignored: ['download_mode', 'remote_files', 'extraction_mode']. Make sure to use only valid params for the dataset builder and to have a up-to-date version of the `datasets` library.
+2026-09-17 02:54:10,985 - datasets.load - WARNING - Some datasets params were ignored: ['download_mode', 'remote_files', 'extraction_mode']. Make sure to use only valid params for the dataset builder and to have a up-to-date version of the `datasets` library.
+[bio-auditor] 2 question(s) selected
+[bio-auditor] 2 to run, batch_size=4, window=16 stride=16 concurrency=4 (each question submitted exactly once)
+Processing benchmark tasks:   0%|          | 0/2 [00:00<?, ?it/s]2026-09-17 03:16:31,443 - aviary.env - ERROR - Encountered exception during tool call for tool edit_cell: TimeoutError('Notebook execution timed out after 1200.0 seconds')
+Processing benchmark tasks:  50%|█████     | 1/2 [22:21<22:21, 1341.15s/it]2026-09-17 03:54:12,585 - __main__ - WARNING - Timeout while rolling out environments
+Processing benchmark tasks:  50%|█████     | 1/2 [1:00:01<1:00:01, 3601.19s/it]
+2026-09-17 03:54:12,598 - __main__ - INFO - Completed trajectory generation
+EXIT=0
+END 03:54:18

@@ -1,8 +1,44 @@
+# --- secrets and environments -------------------------------------------------
 .env
+.env.*
+!.env.example
 .venv/
-cache/
-results/
+venv/
+
+# --- internal working notes ---------------------------------------------------
+# The agent spec / running log. Superseded for readers by README.md,
+# harness/README.md and results/summary.md.
 CLAUDE.md
+
+# --- derived: regenerate, do not commit ---------------------------------------
+# per-question block lists; src/collect.py rebuilds them from data/
+results/work/
+# API response cache (~40 MB). Reruns re-hit the APIs, or restore your own.
+cache/
+
+# --- process scratch ----------------------------------------------------------
+# intermediate passes of the blind adjudication. results/adjudications.csv is
+# the canonical artefact and the only one grade_truth.py reads.
+results/adjudications.prev.csv
+results/adjudications_blind.csv
+results/adjudications_filled.csv
+results/adjudications_review10.csv
+results/adjudications_rowmap.json
+# duplicated verbatim under logs/
+results/log_judge.txt
+results/log_judge2.txt
+# raw per-row output of the superseded v1 run; v1 summary and metrics are kept
+results/v1/answers.csv
+results/v1/labelled.csv
+results/v1/judgments.csv
+
+# --- v1 leftovers -------------------------------------------------------------
 raw_trajectory_data.csv
+
+# --- python / os --------------------------------------------------------------
 __pycache__/
 *.pyc
+*.pyo
+.pytest_cache/
+.ipynb_checkpoints/
+.DS_Store
