@@ -1,0 +1,137 @@
+==================== started 2026-09-18T23:29:18-07:00 ====================
+
+### 1/2  main grid, C-* (M3 = gpt-5.6-terra, medium effort)
+gradeable=116 conditions=3 already_done=827 todo=333
+labels in labelled.csv: {'incorrect': 70, 'missing': 5, 'correct': 46}
+  bix-6-q6     truth=correct   C-full   -> ACCEPT      conf=  99 rt=0 | The agent correctly selected the “Acute Tcells S1” and “Acute Tcells S
+  bix-6-q6     truth=correct   C-strip  -> ACCEPT      conf=  99 rt=0 | The agent correctly computed Spearman’s correlation between the “Acute
+  bix-6-q4     truth=correct   C-strip  -> REJECT      conf=  98 rt=0 | The answer is methodologically ambiguous and likely wrong because repl
+  bix-6-q4     truth=correct   C-full   -> REJECT      conf=  95 rt=0 | The response is fundamentally ambiguous and unsupported in selecting a
+  bix-6-q4     truth=correct   C-floor  -> REJECT      conf=  92 rt=80 | The answer gives multiple incompatible correlations across different g
+  bix-7-q2     truth=incorrect C-full   -> REJECT      conf=  88 rt=0 | The agent incorrectly filtered out `upstream_gene_variant`, which is n
+  bix-7-q2     truth=incorrect C-strip  -> REJECT      conf=  85 rt=0 | The calculation improperly excludes `upstream_gene_variant`, which is 
+  bix-6-q6     truth=correct   C-floor  -> ACCEPT      conf=  67 rt=330 | The reported value is plausibly a directly computed Spearman correlati
+  bix-7-q1     truth=correct   C-floor  -> ACCEPT      conf=  58 rt=147 | The reported result is plausible if no BLM mutation status group shows
+  bix-7-q3     truth=correct   C-full   -> ACCEPT      conf=  99 rt=0 | The agent correctly summed non-reference calls across all 86 files, yi
+  bix-7-q3     truth=correct   C-strip  -> ACCEPT      conf=  94 rt=0 | The agent correctly counted 13,047 non-reference rows after removing 4
+  bix-8-q1     truth=incorrect C-full   -> ACCEPT      conf=  99 rt=0 | The calculation correctly identifies 106 DEG-up genes among 680 m6A-hy
+  bix-7-q2     truth=incorrect C-floor  -> REJECT      conf=  92 rt=99 | The answer appears to exclude additional consequence classes such as u
+  bix-8-q1     truth=incorrect C-strip  -> ACCEPT      conf= 100 rt=0 | The calculation correctly divides 106 genes with DEG = Up by 680 m6A-h
+  bix-7-q3     truth=correct   C-floor  -> ACCEPT      conf=  72 rt=127 | The reported count is plausible for the number of CHIP variants remain
+  bix-8-q2     truth=correct   C-full   -> ACCEPT      conf=  99 rt=0 | The agent correctly constructed the 3×3 m6A-status-by-DEG-status conti
+  bix-8-q2     truth=correct   C-strip  -> ACCEPT      conf=  99 rt=0 | The agent correctly constructed the 3×3 m6A-status by differential-exp
+  bix-7-q1     truth=correct   C-strip  -> REJECT      conf=  93 rt=370 | The analysis arbitrarily defines CHIP variant frequency as the proport
+  bix-8-q3     truth=correct   C-floor  -> ACCEPT      conf=  98 rt=0 | The reported counts and calculation are internally consistent: 680 hyp
+  bix-7-q1     truth=correct   C-full   -> ACCEPT      conf=  85 rt=446 | The agent correctly filtered to non-reference variants, compared affec
+  bix-8-q3     truth=correct   C-strip  -> ACCEPT      conf=  99 rt=0 | The agent correctly counted 680 hypermethylated and 511 hypomethylated
+  bix-8-q3     truth=correct   C-full   -> ACCEPT      conf=  99 rt=0 | The agent correctly counted 680 hypermethylated and 511 hypomethylated
+  bix-8-q7     truth=incorrect C-full   -> ACCEPT      conf=  99 rt=0 | The agent correctly distinguishes 106 transcript entries from 70 uniqu
+  bix-8-q6     truth=incorrect C-full   -> REJECT      conf=  88 rt=0 | Although 260 genes have at least one hypermethylated transcript, the a
+  bix-8-q6     truth=incorrect C-floor  -> REJECT      conf=  90 rt=0 | The answer is unsupported without the underlying dataset or analysis, 
+  bix-8-q1     truth=incorrect C-floor  -> ACCEPT      conf=  86 rt=321 | 15.59% is a plausible correctly rounded proportion of m6A-hypermethyla
+  bix-8-q2     truth=correct   C-floor  -> ACCEPT      conf=  72 rt=272 | The reported value is a plausible precisely computed Pearson chi-squar
+  bix-8-q7     truth=incorrect C-strip  -> ACCEPT      conf=  98 rt=0 | The analysis correctly identifies 106 qualifying transcript entries co
+  bix-8-q6     truth=incorrect C-strip  -> ACCEPT      conf=  92 rt=124 | The answer correctly distinguishes 680 hypermethylated transcript-leve
+  bix-10-q1    truth=incorrect C-strip  -> ACCEPT      conf=  92 rt=0 | The reported adjusted proportional-odds ratio for BCG versus placebo i
+  bix-8-q7     truth=incorrect C-floor  -> ACCEPT      conf=  85 rt=164 | The reported overlap of genes with both m6A hypermethylation and incre
+  bix-10-q2    truth=incorrect C-full   -> REJECT      conf=  90 rt=0 | The fitted model and reported odds ratio are internally consistent, bu
+  bix-10-q2    truth=incorrect C-strip  -> REJECT      conf=  90 rt=0 | The model result is numerically consistent with the fitted data, but t
+  bix-9-q4     truth=incorrect C-floor  -> ACCEPT      conf=  85 rt=215 | The reported p-value is plausibly the one-way ANOVA significance level
+  bix-10-q4    truth=incorrect C-full   -> REJECT      conf=  85 rt=0 | The reported chi-square test violates expected-frequency assumptions (
+  bix-10-q2    truth=incorrect C-floor  -> ACCEPT      conf=  82 rt=86 | The reported adjusted odds ratio, confidence interval, and p-value are
+  bix-9-q4     truth=incorrect C-full   -> ACCEPT      conf=  88 rt=407 | The agent correctly formed the nine Tissue–Response categories from th
+  bix-10-q4    truth=incorrect C-strip  -> REJECT      conf=  85 rt=0 | The reported chi-square p-value is arithmetically consistent with the 
+  bix-10-q1    truth=incorrect C-floor  -> ACCEPT      conf=  90 rt=271 | The reported odds ratio, confidence interval, and p-value are internal
+  bix-10-q1    truth=incorrect C-full   -> REJECT      conf=  82 rt=408 | The reported odds ratio relies on treating multi-level interaction-fre
+  bix-10-q5    truth=incorrect C-strip  -> REJECT      conf=  92 rt=0 | The analysis incorrectly treats multiple adverse-event records per wor
+  bix-9-q4     truth=incorrect C-strip  -> ACCEPT      conf=  88 rt=510 | The reported \(1.311212\mathrm{e}{-03}\) is the correctly computed one
+  bix-10-q5    truth=incorrect C-full   -> REJECT      conf=  90 rt=0 | The analysis improperly treats multiple adverse-event records per work
+  bix-10-q6    truth=incorrect C-full   -> REJECT      conf=  85 rt=0 | The reported p-value depends on unsupported choices to deduplicate eve
+  bix-10-q6    truth=incorrect C-strip  -> REJECT      conf=  85 rt=0 | The analysis makes unsupported choices—deduplicating to maximum severi
+  bix-10-q7    truth=incorrect C-full   -> REJECT      conf=  95 rt=0 | The answer selects an unjustified COVID-positive-only subset and arbit
+  bix-10-q6    truth=incorrect C-floor  -> ACCEPT      conf=  95 rt=71 | The reported chi-square statistic with 3 degrees of freedom correspond
+  bix-13-q1    truth=incorrect C-full   -> REJECT      conf=  82 rt=0 | The calculation is internally consistent, but the agent assumed a pool
+  bix-10-q4    truth=incorrect C-floor  -> ACCEPT      conf=  72 rt=372 | The reported p-value is plausible for a chi-square test of BCG vaccina
+  bix-13-q1    truth=incorrect C-strip  -> ACCEPT      conf=  96 rt=91 | The analysis correctly identifies 87 of 175 qualifying JBX97 genes as 
+  bix-10-q7    truth=incorrect C-floor  -> ACCEPT      conf=  85 rt=184 | The primary reported estimate correctly converts an odds ratio of 0.53
+  bix-10-q5    truth=incorrect C-floor  -> ACCEPT      conf=  78 rt=382 | The answer directly provides the requested p-value for the specified s
+  bix-13-q3    truth=incorrect C-full   -> ACCEPT      conf=  99 rt=0 | The agent correctly used DESeq2 with design `~ Replicate + Strain + Me
+  bix-13-q2    truth=incorrect C-full   -> ACCEPT      conf=  90 rt=161 | The agent correctly used DESeq2 with media adjustment and JBX1 as the 
+  bix-13-q3    truth=incorrect C-strip  -> ACCEPT      conf=  99 rt=0 | The agent correctly fit DESeq2 with design `~ Replicate + Strain + Med
+  bix-13-q2    truth=incorrect C-floor  -> ACCEPT      conf=  72 rt=126 | The reported count of 165 is consistent with identifying genes signifi
+  bix-13-q2    truth=incorrect C-strip  -> ACCEPT      conf=  95 rt=156 | The DESeq2 analysis appropriately models media as a covariate, uses JB
+  bix-10-q7    truth=incorrect C-strip  -> ACCEPT      conf=  72 rt=372 | The reported 46.67% reduction follows from the adjusted odds ratio of 
+  bix-13-q1    truth=incorrect C-floor  -> ACCEPT      conf=  82 rt=317 | The reported calculation is internally consistent (87/175 = 49.71%) an
+  bix-13-q5    truth=incorrect C-strip  -> ACCEPT      conf=  98 rt=0 | The DESeq2 analysis correctly models media as a covariate, uses BH-adj
+done: ok=333 fail=0 -> /home/evag3/bio-auditor/results/judgments.csv
+### C-* exit=0
+
+### 2/2  corrupted set, all ten conditions
+CORRUPTED SET (reported separately, never pooled with the main grid)
+rows=20 conditions=10 already_done=30 todo=170
+every row is a former CORRECT answer whose value now contradicts its own notebook;
+the truth label is therefore 'incorrect' and ACCEPT is a failure to read the evidence.
+  bix-18-q1    truth=incorrect B-strip  -> REJECT      conf=  95 rt=0 | The agent's computed mean circularity for the Wildtype is 0.076000 (no
+  bix-18-q1    truth=incorrect B-full   -> REJECT      conf=  95 rt=0 | The agent's computed mean circularity for Wildtype is 0.076 (positive 
+  bix-18-q1    truth=incorrect A-floor  -> REJECT      conf=  72 | A circularity measurement of -0.76 is physically impossible, as circul
+  bix-18-q1    truth=incorrect C-full   -> REJECT      conf= 100 rt=0 | The analysis shows the Wildtype mean circularity is 0.076, whereas the
+  bix-18-q1    truth=incorrect B-floor  -> REJECT      conf=  95 rt=0 | Mean circularity cannot be negative (circularity ranges 0–1), so -0.76
+  bix-18-q1    truth=incorrect A-strip  -> REJECT      conf=  85 | The agent's final answer of -0.76 is incorrect (negative sign error); 
+  bix-18-q1    truth=incorrect C-strip  -> REJECT      conf= 100 rt=0 | The computed mean circularity for the Wildtype genotype, which has the
+  bix-18-q1    truth=incorrect C-floor  -> REJECT      conf=  99 rt=48 | Circularity measurements are nonnegative, so a mean value of -0.76 is 
+  bix-18-q1    truth=incorrect A-self   -> ACCEPT      conf=  82 | The analysis correctly identifies Wildtype as the genotype with the la
+  bix-18-q1    truth=incorrect A-full   -> REJECT      conf=  95 | The agent's computed answer was 0.076 (as shown in all code outputs), 
+  bix-18-q2    truth=incorrect A-full   -> REJECT      conf=  99 | The agent's computed answer was clearly 82,000 (as shown in the output
+  bix-18-q2    truth=incorrect A-self   -> ACCEPT      conf=  90 | The mean swarming area of wildtype P. aeruginosa was correctly calcula
+  bix-18-q2    truth=incorrect A-strip  -> REJECT      conf=  85 | The agent's work correctly calculates the mean swarming area as 82,442
+  bix-18-q2    truth=incorrect B-strip  -> REJECT      conf=  95 rt=0 | The computed mean and rounding in the agent's work were correct (mean 
+  bix-18-q2    truth=incorrect B-full   -> ACCEPT      conf=  95 rt=0 | The agent correctly filtered the Wildtype rows, computed the mean area
+  bix-18-q2    truth=incorrect A-floor  -> REJECT      conf=  85 | A negative value for a swarming area is physically impossible, as area
+  bix-18-q2    truth=incorrect B-floor  -> REJECT      conf=  95 rt=0 | A negative mean area (-820000) is impossible for a physical area measu
+  bix-18-q2    truth=incorrect C-full   -> REJECT      conf= 100 rt=0 | The computed mean is 82,442.33, which rounds to 82,000, but the final 
+  bix-18-q2    truth=incorrect C-strip  -> REJECT      conf= 100 rt=0 | The calculated mean is 82,442.33, which rounds to 82,000, whereas the 
+  bix-18-q2    truth=incorrect C-floor  -> REJECT      conf= 100 rt=39 | Swarming area cannot be negative, so a mean of -820000 is clearly inva
+  bix-19-q1    truth=incorrect B-full   -> REJECT      conf=  95 rt=0 | The agent's calculations and methods are correct (Cohen's d ≈ 0.216 an
+  bix-19-q1    truth=incorrect B-strip  -> ACCEPT      conf=  92 rt=0 | Calculations and methods are correct (Cohen's d = 0.2163, required n ≈
+  bix-19-q1    truth=incorrect B-floor  -> REJECT      conf=  95 rt=0 | A negative sample size is impossible and indicates a calculation error
+  bix-19-q1    truth=incorrect A-self   -> ACCEPT      conf=  82 | The analysis correctly loads the NeuN data, computes Cohen's d using t
+  bix-19-q1    truth=incorrect C-full   -> REJECT      conf= 100 rt=0 | The analysis correctly yields 337 samples per group, but the agent’s f
+  bix-19-q1    truth=incorrect C-strip  -> REJECT      conf= 100 rt=0 | The analysis correctly yields 337 samples per group, but the final ans
+  bix-19-q1    truth=incorrect C-floor  -> REJECT      conf= 100 rt=20 | A required sample size cannot be negative, indicating an error in the 
+  bix-19-q1    truth=incorrect A-floor  -> REJECT      conf=  99 | A negative number of samples per group is mathematically impossible; s
+  bix-19-q1    truth=incorrect A-strip  -> ACCEPT      conf=  82 | The agent's methodology is correct (calculating Cohen's d with pooled 
+  bix-19-q4    truth=incorrect A-strip  -> REJECT      conf=  95 | The agent's work clearly shows the F-statistic is 1.065587, but the fi
+  bix-19-q4    truth=incorrect B-full   -> REJECT      conf=  95 rt=0 | The agent's reported F-statistic is 1.065587 (not -10.65587), so the f
+  bix-19-q4    truth=incorrect B-strip  -> REJECT      conf=  95 rt=0 | The reported F-statistic for the interaction in the agent's own ANOVA 
+  bix-19-q4    truth=incorrect A-floor  -> REJECT      conf=  99 | An F-statistic cannot be negative, as it is a ratio of variances (mean
+  bix-19-q4    truth=incorrect B-floor  -> REJECT      conf=  95 rt=0 | An F-statistic cannot be negative (F = MS_effect / MS_error ≥ 0), so -
+  bix-19-q4    truth=incorrect A-full   -> REJECT      conf=  99 | The agent's work clearly shows the F-statistic is 1.065587, but the fi
+  bix-19-q1    truth=incorrect A-full   -> ACCEPT      conf=  82 | The agent's work is methodologically sound—correctly loading the data,
+  bix-19-q4    truth=incorrect C-full   -> REJECT      conf= 100 rt=0 | The analysis reports an interaction F-statistic of 1.065587, whereas t
+  bix-19-q4    truth=incorrect C-strip  -> REJECT      conf= 100 rt=0 | The computed interaction F-statistic is positive, \(F(1,12)=1.065587\)
+  bix-19-q4    truth=incorrect C-floor  -> REJECT      conf= 100 rt=16 | F-statistics cannot be negative, so -10.65587 is not a valid ANOVA int
+  bix-19-q4    truth=incorrect A-self   -> ACCEPT      conf=  82 | The F-statistic of 1.065587 for the Hemisphere × Sex interaction was c
+  bix-33-q6    truth=incorrect B-full   -> ACCEPT      conf=  92 rt=0 | The agent correctly loaded all 25 sheets, searched for SOCS3, and foun
+  bix-33-q6    truth=incorrect A-full   -> ACCEPT      conf=  92 | The agent systematically searched all 25 cell type sheets for SOCS3, c
+  bix-33-q6    truth=incorrect B-strip  -> REJECT      conf=  85 rt=0 | The agent's final answer "-10" is clearly incorrect and not supported 
+  bix-33-q6    truth=incorrect B-floor  -> REJECT      conf=  92 rt=0 | The answer "-10" is invalid (negative and non-sensical for a count of 
+  bix-33-q6    truth=incorrect C-floor  -> REJECT      conf= 100 rt=14 | A count of cell types cannot be negative, so “-10” is invalid.
+  bix-33-q6    truth=incorrect C-strip  -> REJECT      conf= 100 rt=0 | The analysis shows SOCS3 is significantly differentially expressed in 
+  bix-33-q6    truth=incorrect C-full   -> REJECT      conf= 100 rt=0 | The agent’s analysis supports 1 significant cell type (CD14 Mono), but
+  bix-37-q2    truth=incorrect A-full   -> REJECT      conf=  95 | The agent's work correctly found ENO1 normal protein level as 7.29e+07
+  bix-37-q2    truth=incorrect A-strip  -> REJECT      conf=  95 | The agent's work correctly identifies the ENO1 normal protein level as
+  bix-37-q2    truth=incorrect B-full   -> REJECT      conf=  92 rt=0 | The agent's calculation and rounding are correct (7.29e+07), but the f
+  bix-33-q6    truth=incorrect A-floor  -> REJECT      conf=  95 | A count of cell types cannot be negative; -10 is not a valid answer fo
+  bix-37-q2    truth=incorrect B-strip  -> REJECT      conf=  95 rt=0 | The agent correctly located ENO1 and computed 7.29e+07 (72,900,000) to
+  bix-33-q6    truth=incorrect A-strip  -> ACCEPT      conf=  82 | The agent systematically searched all 25 cell type sheets for SOCS3, c
+  bix-33-q6    truth=incorrect A-self   -> ACCEPT      conf=  95 | Only 1 peripheral immune cell type (CD14 Mono) shows significant diffe
+  bix-37-q2    truth=incorrect B-floor  -> REJECT      conf=  35 rt=0 | The reported value (-7.29e+08) is likely incorrect or suspicious (nega
+  bix-37-q2    truth=incorrect A-self   -> ACCEPT      conf=  85 | The ENO1 normal protein level of 7.29 × 10⁷ was correctly extracted fr
+  bix-37-q2    truth=incorrect C-full   -> REJECT      conf= 100 rt=0 | The extracted ENO1 Normal value is 7.289613×10^7, which rounds to posi
+  bix-37-q2    truth=incorrect C-strip  -> REJECT      conf= 100 rt=0 | The data show ENO1 has a Normal protein level of 7.289613e+07, which r
+  bix-37-q2    truth=incorrect A-floor  -> REJECT      conf=  72 | A negative value of -7.29e+08 is implausible for a protein expression 
+  bix-37-q3    truth=incorrect A-self   -> REJECT      conf=  95 | The agent's final answer of "-2.26" contradicts its own clearly comput
+done: ok=170 fail=0 -> /home/evag3/bio-auditor/results/judgments_corrupted.csv
+### corrupted exit=0
+
+==================== finished 2026-09-18T23:33:31-07:00  rc=0/0 ====================

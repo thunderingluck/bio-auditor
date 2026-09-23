@@ -42,3 +42,5 @@ __pycache__/
 .pytest_cache/
 .ipynb_checkpoints/
 .DS_Store
+# one-off backup written by judge.py migrate_header()
+results/judgments.pre-migration.csv

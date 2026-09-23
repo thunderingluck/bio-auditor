@@ -20,6 +20,18 @@ A-floor - A-strip,balanced_accuracy,-0.01521739130434785,-0.08429276315789469,0.
 B-floor - B-strip,wrong_answer_acceptance_rate,-0.9428571428571428,-0.9855124223602485,-0.8970588235294118,0.0,does M2's stripped judge use the notebook
 B-floor - B-strip,correct_answer_acceptance_rate,-0.8478260869565217,-0.9743589743589743,-0.7333333333333334,0.0,does M2's stripped judge use the notebook
 B-floor - B-strip,balanced_accuracy,0.047515527950310554,-0.016666666666666663,0.10566273840730364,0.1728,does M2's stripped judge use the notebook
+C-full - C-strip,wrong_answer_acceptance_rate,-0.07142857142857151,-0.16279701718907988,0.027787558685445878,0.1932,"argument effect, M3"
+C-full - C-strip,correct_answer_acceptance_rate,0.04347826086956519,-0.04081632653061218,0.15000000000000002,0.43,"argument effect, M3"
+C-full - C-strip,balanced_accuracy,0.05745341614906829,-0.0062540064102563865,0.1247336697665234,0.086,"argument effect, M3"
+C-floor - C-strip,wrong_answer_acceptance_rate,0.27142857142857135,0.1195611615833874,0.4166666666666667,0.0016,does M3's stripped judge use the notebook
+C-floor - C-strip,correct_answer_acceptance_rate,0.06521739130434778,-0.0444444444444444,0.20512820512820518,0.3372,does M3's stripped judge use the notebook
+C-floor - C-strip,balanced_accuracy,-0.10310559006211184,-0.20081692110886182,0.0033590610157106563,0.0556,does M3's stripped judge use the notebook
+B-strip - C-strip,wrong_answer_acceptance_rate,0.3857142857142857,0.2368301435406698,0.5342465753424658,0.0,"REASONING SPEND: minimal vs medium effort, same provider family, identical bytes. The cleanest reasoning contrast available, though the two are still different models"
+B-strip - C-strip,correct_answer_acceptance_rate,0.17391304347826086,0.07692307692307687,0.30306324110671884,0.0,"REASONING SPEND: minimal vs medium effort, same provider family, identical bytes. The cleanest reasoning contrast available, though the two are still different models"
+B-strip - C-strip,balanced_accuracy,-0.10590062111801246,-0.19851408177944999,-0.007893446852425115,0.0364,"REASONING SPEND: minimal vs medium effort, same provider family, identical bytes. The cleanest reasoning contrast available, though the two are still different models"
+A-strip - C-strip,wrong_answer_acceptance_rate,0.2857142857142857,0.16455696202531644,0.40909090909090906,0.0,"judge identity, argument absent: no-reasoning vs reasoning judge"
+A-strip - C-strip,correct_answer_acceptance_rate,0.15217391304347827,0.06000000000000005,0.2777777777777778,0.0012,"judge identity, argument absent: no-reasoning vs reasoning judge"
+A-strip - C-strip,balanced_accuracy,-0.06677018633540377,-0.14558794466403163,0.01885202196177805,0.1152,"judge identity, argument absent: no-reasoning vs reasoning judge"
 A-self - B-strip,wrong_answer_acceptance_rate,-0.09999999999999998,-0.16666666666666663,-0.04225352112676062,0.0004,"CONFOUNDED end-to-end: judge, framing and argument all differ. NOT evidence for H1"
 A-self - B-strip,correct_answer_acceptance_rate,-0.021739130434782594,-0.07578671328671331,0.0,0.74,"CONFOUNDED end-to-end: judge, framing and argument all differ. NOT evidence for H1"
 A-self - B-strip,balanced_accuracy,0.03913043478260869,0.0009067614810106459,0.07692307692307687,0.0464,"CONFOUNDED end-to-end: judge, framing and argument all differ. NOT evidence for H1"

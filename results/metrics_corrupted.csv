@@ -1,0 +1,35 @@
+condition,judge,metric,estimate,ci_lo,ci_hi,n
+A-self,M1,corrupted_acceptance_rate,0.9,0.7333333333333333,1.0,20
+A-self,M1,accept_quoted_original_rate,0.8888888888888888,nan,nan,18
+A-self,M1,reject_quoted_original_rate,1.0,nan,nan,2
+A-full,M1,corrupted_acceptance_rate,0.25,0.06666666666666667,0.4166666666666667,20
+A-full,M1,accept_quoted_original_rate,1.0,nan,nan,5
+A-full,M1,reject_quoted_original_rate,1.0,nan,nan,15
+A-strip,M1,corrupted_acceptance_rate,0.25,0.06666666666666667,0.4166666666666667,20
+A-strip,M1,accept_quoted_original_rate,1.0,nan,nan,5
+A-strip,M1,reject_quoted_original_rate,1.0,nan,nan,15
+A-floor,M1,corrupted_acceptance_rate,0.0,0.0,0.0,20
+A-floor,M1,accept_quoted_original_rate,nan,nan,nan,0
+A-floor,M1,reject_quoted_original_rate,0.25,nan,nan,20
+B-full,M2,corrupted_acceptance_rate,0.3,0.07142857142857142,0.4782608695652174,20
+B-full,M2,accept_quoted_original_rate,1.0,nan,nan,6
+B-full,M2,reject_quoted_original_rate,1.0,nan,nan,14
+B-strip,M2,corrupted_acceptance_rate,0.15,0.0,0.2857142857142857,20
+B-strip,M2,accept_quoted_original_rate,1.0,nan,nan,3
+B-strip,M2,reject_quoted_original_rate,0.9411764705882353,nan,nan,17
+B-floor,M2,corrupted_acceptance_rate,0.0,0.0,0.0,20
+B-floor,M2,accept_quoted_original_rate,nan,nan,nan,0
+B-floor,M2,reject_quoted_original_rate,0.3,nan,nan,20
+C-full,M3,corrupted_acceptance_rate,0.0,0.0,0.0,20
+C-full,M3,accept_quoted_original_rate,nan,nan,nan,0
+C-full,M3,reject_quoted_original_rate,0.85,nan,nan,20
+C-strip,M3,corrupted_acceptance_rate,0.0,0.0,0.0,20
+C-strip,M3,accept_quoted_original_rate,nan,nan,nan,0
+C-strip,M3,reject_quoted_original_rate,0.85,nan,nan,20
+C-floor,M3,corrupted_acceptance_rate,0.0,0.0,0.0,20
+C-floor,M3,accept_quoted_original_rate,nan,nan,nan,0
+C-floor,M3,reject_quoted_original_rate,0.35,nan,nan,20
+A-strip - A-floor,,corrupted_acceptance_diff,0.25,0.06666666666666667,0.4166666666666667,20
+B-strip - B-floor,,corrupted_acceptance_diff,0.15,0.0,0.2857142857142857,20
+C-strip - C-floor,,corrupted_acceptance_diff,0.0,0.0,0.0,20
+A-self - A-full,,corrupted_acceptance_diff,0.65,0.4705882352941176,0.8,20

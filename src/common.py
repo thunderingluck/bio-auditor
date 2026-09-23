@@ -7,6 +7,10 @@ Design invariants (see CLAUDE.md):
 
 v2 note: stage 1 is now the BixBench harness, so the v1 generation prompt and
 ANSWER-line parsing are gone. What remains is the judging side plus the cache.
+
+v2.1: a third judge (M3) at reasoning_effort=medium, and reasoning-token capture
+on both provider paths. OpenAI reports reasoning tokens directly; Anthropic does
+not, so that field is None for M1 rather than 0. Treat None as "not reported".
 """
 from __future__ import annotations
 
@@ -34,7 +38,19 @@ M1_MODEL = "claude-sonnet-4-6"           # stage-1 agent AND the judge in A-*
 M2_MODEL = "gpt-5-mini-2025-08-07"       # judge only, B-*
 M2_REASONING_EFFORT = "minimal"          # no hidden scratchpad, symmetric with M1
 
-JUDGE_TEMPERATURE = 0                    # M1 only; OpenAI fixes M2 at 1
+# M3 is the third judge, C-*. It is deliberately NOT symmetric with M1 and M2:
+# it reasons at medium effort, so the grid now spans no-reasoning and reasoning
+# judges. That makes reasoning spend a between-condition variable rather than a
+# constant, which is the point of adding it.
+#
+# Pinned to the bare alias because OpenAI publishes no dated snapshot for this
+# model; `judge_model` in judgments.csv records what the API actually resolved,
+# so a silent alias move is detectable after the fact.
+M3_MODEL = "gpt-5.6-terra"               # judge only, C-*
+M3_REASONING_EFFORT = "medium"
+M3_MAX_COMPLETION_TOKENS = 8192          # medium effort needs headroom; see below
+
+JUDGE_TEMPERATURE = 0                    # M1 only; OpenAI fixes M2 and M3 at 1
 JUDGE_MAX_TOKENS = 512                   # three lines is all we ask for
 M2_MAX_COMPLETION_TOKENS = 2048          # reasoning tokens count against this
 
@@ -156,11 +172,19 @@ def _call_anthropic(request: dict) -> dict:
     extra_body = {"temperature": temperature} if temperature is not None else None
     resp = client.messages.create(**req, extra_body=extra_body)
     text = "".join(getattr(b, "text", "") for b in resp.content if getattr(b, "type", "") == "text")
+    # Anthropic bills extended thinking inside output_tokens and exposes no separate
+    # counter. M1 runs with thinking off, so the honest value is None ("not reported"),
+    # never 0, which would wrongly read as "reasoned, and spent nothing".
+    thinking = sum(len(getattr(b, "thinking", "") or "")
+                   for b in resp.content if getattr(b, "type", "") == "thinking")
     return {
         "text": text,
         "stop_reason": resp.stop_reason,
         "model": resp.model,
-        "usage": {"input_tokens": resp.usage.input_tokens, "output_tokens": resp.usage.output_tokens},
+        "usage": {"input_tokens": resp.usage.input_tokens,
+                  "output_tokens": resp.usage.output_tokens,
+                  "reasoning_tokens": None,
+                  "thinking_chars": thinking},
         "raw": resp.model_dump(mode="json"),
     }
 

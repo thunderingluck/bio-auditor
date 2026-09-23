@@ -12,7 +12,12 @@ as the guard that separates better judgement from a shifted threshold.
 Formally: wrong-answer acceptance = false-positive rate; correct-answer rejection =
 false-negative rate. Defined once here, then referred to by the readable names.
 
-Writes: metrics.csv, contrasts.csv, rejection_justifications.csv, summary.md,
+Ten conditions across three judges. The corrupted set (the manipulation check) is
+read from judgments_corrupted.csv and reported in its own section; it is never
+pooled with the main grid, because those rows are constructed rather than observed.
+
+Writes: metrics.csv, metrics_corrupted.csv, contrasts.csv,
+        rejection_justifications.csv, summary.md,
         paper/fig1.png|pdf, paper/fig2_calibration.png|pdf
 """
 from __future__ import annotations
@@ -33,9 +38,16 @@ LABELLED = C.RESULTS / "labelled.csv"
 PAPER = C.ROOT / "paper"
 PAPER.mkdir(exist_ok=True)
 
-CONDITIONS = ["A-self", "A-full", "A-strip", "A-floor", "B-full", "B-strip", "B-floor"]
+CONDITIONS = ["A-self", "A-full", "A-strip", "A-floor",
+              "B-full", "B-strip", "B-floor",
+              "C-full", "C-strip", "C-floor"]
 JUDGE_OF = {"A-self": "M1", "A-full": "M1", "A-strip": "M1", "A-floor": "M1",
-            "B-full": "M2", "B-strip": "M2", "B-floor": "M2"}
+            "B-full": "M2", "B-strip": "M2", "B-floor": "M2",
+            "C-full": "M3", "C-strip": "M3", "C-floor": "M3"}
+MODEL_OF = {"M1": C.M1_MODEL, "M2": C.M2_MODEL, "M3": C.M3_MODEL}
+EFFORT_OF = {"M1": "none (thinking off)", "M2": C.M2_REASONING_EFFORT, "M3": C.M3_REASONING_EFFORT}
+
+CORRUPTED_IN = C.RESULTS / "judgments_corrupted.csv"
 
 CONTRASTS = [
     ("A-self", "A-full", "PRIMARY (H1): own prior turn vs the same work quoted"),
@@ -45,6 +57,12 @@ CONTRASTS = [
     ("A-strip", "B-strip", "judge identity, argument absent"),
     ("A-floor", "A-strip", "does M1's stripped judge use the notebook"),
     ("B-floor", "B-strip", "does M2's stripped judge use the notebook"),
+    ("C-full", "C-strip", "argument effect, M3"),
+    ("C-floor", "C-strip", "does M3's stripped judge use the notebook"),
+    ("B-strip", "C-strip", "REASONING SPEND: minimal vs medium effort, same provider family, "
+                           "identical bytes. The cleanest reasoning contrast available, though "
+                           "the two are still different models"),
+    ("A-strip", "C-strip", "judge identity, argument absent: no-reasoning vs reasoning judge"),
     ("A-self", "B-strip", "CONFOUNDED end-to-end: judge, framing and argument all differ. NOT evidence for H1"),
 ]
 
@@ -154,8 +172,260 @@ def classify_rejection(just: str, v_value: str, notebook: str) -> tuple[str, int
     return "other", 0
 
 
+# -------------------------------------------------- reasoning-spend helpers --
+def reasoning_of(r: dict) -> int | None:
+    """None means the provider reported nothing, which is NOT the same as zero.
+
+    M1 runs with thinking off and Anthropic exposes no counter, so its rows are
+    blank. M2 is pinned at minimal effort and genuinely returns 0. Collapsing the
+    two would invent a data point for M1 at exactly the value that makes it look
+    like a measured floor.
+    """
+    v = str(r.get("reasoning_tokens", "")).strip()
+    if v == "" or v.lower() == "none":
+        return None
+    try:
+        return int(float(v))
+    except ValueError:
+        return None
+
+
+def spearman(x: list[float], y: list[float]) -> float:
+    """Rank correlation, written out rather than pulled from scipy (not a dependency).
+    Ties get average ranks, which matters here: most reasoning counts are 0."""
+    if len(x) < 3:
+        return np.nan
+    def rank(v):
+        a = np.asarray(v, dtype=float)
+        order = a.argsort()
+        r = np.empty(len(a), dtype=float)
+        r[order] = np.arange(len(a), dtype=float)
+        # average ranks within tied groups
+        _, inv, counts = np.unique(a, return_inverse=True, return_counts=True)
+        sums = np.zeros(len(counts))
+        np.add.at(sums, inv, r)
+        return (sums / counts)[inv]
+    rx, ry = rank(x), rank(y)
+    if rx.std() == 0 or ry.std() == 0:
+        return np.nan
+    return float(np.corrcoef(rx, ry)[0, 1])
+
+
+def reasoning_section(by_cond: dict) -> list[str]:
+    L = ["", "## Reasoning spend", "",
+         "Reasoning tokens are logged per call for every condition whose provider reports "
+         "them. A blank is *not reported* (M1: Anthropic bills thinking inside output tokens "
+         "and M1 runs with thinking off); a 0 is a reported zero (M2 at minimal effort). "
+         "Only M3 was configured to reason, so within-condition variation exists only there, "
+         "and any across-condition comparison of spend is confounded with judge identity.", "",
+         "| condition | judge | effort | reported | all-zero | median | p90 | max | "
+         "accept rate: 0 tokens | accept rate: >0 tokens | Spearman(tokens, ACCEPT) |",
+         "|---|---|---|---|---|---|---|---|---|---|---|"]
+    out = []
+    for c in CONDITIONS:
+        rows = [r for r in by_cond[c] if r["verdict"] in ("ACCEPT", "REJECT")]
+        vals = [(reasoning_of(r), r["verdict"] == "ACCEPT") for r in rows]
+        rep = [(v, a) for v, a in vals if v is not None]
+        if not rep:
+            L.append(f"| {c} | {JUDGE_OF[c]} | {EFFORT_OF[JUDGE_OF[c]]} | 0 / {len(rows)} "
+                     f"| - | - | - | - | - | - | - |")
+            out.append({"condition": c, "judge": JUDGE_OF[c], "metric": "reasoning_reported_rate",
+                        "estimate": 0.0, "ci_lo": np.nan, "ci_hi": np.nan, "n": len(rows)})
+            continue
+        toks = np.array([v for v, _ in rep], dtype=float)
+        acc = np.array([1.0 if a else 0.0 for _, a in rep])
+        zero, pos = acc[toks == 0], acc[toks > 0]
+        rho = spearman(list(toks), list(acc))
+        def cell(arr):
+            # "-" not "nan": an empty bucket has no rate, and a printed nan reads
+            # like a computation that went wrong rather than one that never applied.
+            return f"{arr.mean():.3f} ({len(arr)})" if len(arr) else f"- (0)"
+
+        L.append(
+            f"| {c} | {JUDGE_OF[c]} | {EFFORT_OF[JUDGE_OF[c]]} | {len(rep)} / {len(rows)} "
+            f"| {'yes' if toks.max() == 0 else 'no'} | {np.median(toks):.0f} "
+            f"| {np.percentile(toks, 90):.0f} | {toks.max():.0f} "
+            f"| {cell(zero)} | {cell(pos)} "
+            f"| {'-' if np.isnan(rho) else f'{rho:+.3f}'} |")
+        for name, val in (("reasoning_median", float(np.median(toks))),
+                          ("reasoning_mean", float(toks.mean())),
+                          ("reasoning_max", float(toks.max())),
+                          ("accept_rate_zero_reasoning", float(zero.mean()) if len(zero) else np.nan),
+                          ("accept_rate_positive_reasoning", float(pos.mean()) if len(pos) else np.nan),
+                          ("spearman_reasoning_accept", rho)):
+            out.append({"condition": c, "judge": JUDGE_OF[c], "metric": name, "estimate": val,
+                        "ci_lo": np.nan, "ci_hi": np.nan, "n": len(rep)})
+
+    active = [c for c in CONDITIONS
+              if any((reasoning_of(r) or 0) > 0 for r in by_cond[c])]
+    L += ["",
+          f"Conditions that actually spent reasoning tokens: "
+          f"{', '.join(f'`{c}`' for c in active) if active else 'none'}.", ""]
+    if active:
+        L += ["Within those conditions the Spearman column is the honest answer to *does "
+              "acceptance vary with reasoning spend*: it is computed over each condition's own "
+              "calls, so judge identity is held fixed. Across conditions, compare `B-strip` with "
+              "`C-strip` in the contrast table - identical bytes, minimal versus medium effort - "
+              "and read it as a bound rather than an effect, because the two are different models "
+              "as well as different efforts.", ""]
+    else:
+        L += ["No condition spent a reasoning token, so the within-condition question is "
+              "unanswerable on this data and the Spearman column is undefined throughout.", ""]
+    return L, out
+
+
+def cites_original(text: str, literal: str) -> bool:
+    """Did the judge quote the value the corrupted answer contradicts?
+
+    This is the load-bearing measurement of the whole manipulation check, and it is
+    decidable rather than interpretive. The original value was removed from the
+    answer text, so it survives ONLY in the notebook. A justification that contains
+    it is proof the judge read the notebook and compared the two.
+
+    Without this we could not tell an ACCEPT that missed the contradiction from one
+    that found it and forgave it - and those are different failures with different
+    fixes. The data says it is almost entirely the second.
+    """
+    raw = (literal or "").replace(",", "")
+    forms = {literal, raw}
+    try:
+        f = float(raw)
+        forms |= {f"{f:,}", f"{f:g}", str(f)}
+        if f == int(f):
+            forms |= {str(int(f)), f"{int(f):,}"}
+    except (ValueError, OverflowError):
+        pass
+    return any(x and x in (text or "") for x in forms)
+
+
+def corrupted_section(bootstrap: int, seed: int) -> tuple[list[str], list[dict]]:
+    """The manipulation check. Reported on its own, never pooled."""
+    rows = C.read_csv(CORRUPTED_IN)
+    if not rows:
+        return (["", "## Manipulation check (corrupted answers)", "",
+                 f"`{CORRUPTED_IN.name}` not present - run "
+                 "`src/corrupt.py` then `src/judge.py --corrupted`.", ""], [])
+    src = {r["question_id"]: r for r in C.read_csv(C.RESULTS / "corrupted.csv")}
+    n_q = len({r["question_id"] for r in rows})
+    reveal = sum(1 for q in {r["question_id"] for r in rows}
+                 if str(src.get(q, {}).get("answer_alone_may_reveal", "0")) == "1")
+
+    by_cond = collections.defaultdict(list)
+    by_cap = collections.defaultdict(lambda: collections.defaultdict(list))
+    for r in rows:
+        by_cond[r["condition"]].append(r)
+        by_cap[r["capsule_uuid"]][r["condition"]].append(r)
+
+    def acc_rate(sub):
+        parsed = [r for r in sub if r["verdict"] in ("ACCEPT", "REJECT")]
+        return float(np.mean([r["verdict"] == "ACCEPT" for r in parsed])) if parsed else np.nan
+
+    rng = np.random.default_rng(seed)
+    caps = sorted(by_cap)
+    draws = []
+    for _ in range(bootstrap):
+        pick = rng.choice(caps, size=len(caps), replace=True)
+        pooled = {c: [] for c in CONDITIONS}
+        for cap in pick:
+            for c in CONDITIONS:
+                pooled[c].extend(by_cap[cap].get(c, []))
+        draws.append({c: acc_rate(pooled[c]) for c in CONDITIONS})
+
+    # Did each judge demonstrably see the contradiction? Counted, not assumed.
+    n_acc_all = n_cited_all = 0
+    for r in rows:
+        if r["verdict"] == "ACCEPT":
+            n_acc_all += 1
+            if cites_original(r["verdict_text"], src[r["question_id"]]["original_literal"]):
+                n_cited_all += 1
+
+    L = ["", "## Manipulation check (corrupted answers) - REPORTED SEPARATELY", "",
+         f"{n_q} answers that were graded CORRECT, with the claimed value replaced by "
+         f"`{src[next(iter(src))]['corruption_rule'] if src else 'y = -10x'}` so it contradicts "
+         "the agent's own notebook. The notebook and the prose are byte-identical to the "
+         "original run and `judge.py` asserts that on every row.", "",
+         "These rows are **constructed, not observed**, and are never pooled with the main "
+         "grid. Every row's truth label is `incorrect`, so balanced accuracy is undefined here "
+         "by construction and only the acceptance rate is meaningful.", "",
+         "**What this set measures, corrected.** It was built to ask whether a judge reads the "
+         "evidence at all. It does not measure that, because the judges do read it: "
+         f"**{n_cited_all} of the {n_acc_all} ACCEPT verdicts quote the original value**, which "
+         "was deleted from the answer and survives only in the notebook. Quoting it is proof the "
+         "judge found the contradiction. What the set actually measures is what a judge does "
+         "*after* finding one - and the overwhelming answer is that it grades the notebook and "
+         "writes the answer off as a typo. So an ACCEPT here is leniency, not blindness, and the "
+         "comparison across conditions is a comparison of willingness to forgive.", "",
+         "**A limitation this exposes in the corruption rule.** `y = -10x` changes a sign and "
+         "shifts a decimal, which is exactly what a transcription slip looks like. The judges' "
+         "typo reading is therefore *reasonable*, and we should not score it as a mistake in "
+         "absolute terms. The relative comparison is unaffected: every condition faces the "
+         "identical question about the identical bytes, so a gap between them is a gap in "
+         "willingness to excuse, not in the plausibility of the excuse. A corruption that cannot "
+         "be read as clerical - a wrong gene, a flipped conclusion - would be needed to measure "
+         "the absolute rate, and this run does not contain one.", "",
+         "**The `-floor` conditions cannot construct the excuse.** They see no notebook, so they "
+         "have no correct value to fall back on and no basis for a typo story. Their 0.000 is the "
+         "absence of an escape hatch, not superior judgement. Read `-strip` minus `-floor` here "
+         "as *how much the notebook enables forgiveness*, which is the opposite sign to how it "
+         "reads in the main grid.", "",
+         f"{reveal} of {n_q} answers also restate their own derivation, so the corruption is "
+         "visible in the answer text alone.", "",
+         "| condition | judge | accepted | rejected | unparseable | acceptance rate | 95% CI "
+         "| of ACCEPTs, quoted the notebook's value | of REJECTs, quoted it |",
+         "|---|---|---|---|---|---|---|---|---|"]
+    out = []
+    for c in CONDITIONS:
+        k = collections.Counter(r["verdict"] for r in by_cond[c])
+        est = acc_rate(by_cond[c])
+        lo, hi = ci([d[c] for d in draws])
+
+        def cited(verdict):
+            sel = [r for r in by_cond[c] if r["verdict"] == verdict]
+            if not sel:
+                return "-", np.nan
+            n = sum(1 for r in sel
+                    if cites_original(r["verdict_text"], src[r["question_id"]]["original_literal"]))
+            return f"{n}/{len(sel)}", n / len(sel)
+
+        acc_cell, acc_frac = cited("ACCEPT")
+        rej_cell, rej_frac = cited("REJECT")
+        L.append(f"| {c} | {JUDGE_OF[c]} | {k['ACCEPT']} | {k['REJECT']} | {k['UNPARSEABLE']} "
+                 f"| {est:.3f} | [{lo:.3f}, {hi:.3f}] | {acc_cell} | {rej_cell} |")
+        out.append({"condition": c, "judge": JUDGE_OF[c], "metric": "corrupted_acceptance_rate",
+                    "estimate": est, "ci_lo": lo, "ci_hi": hi, "n": len(by_cond[c])})
+        out.append({"condition": c, "judge": JUDGE_OF[c],
+                    "metric": "accept_quoted_original_rate", "estimate": acc_frac,
+                    "ci_lo": np.nan, "ci_hi": np.nan, "n": k["ACCEPT"]})
+        out.append({"condition": c, "judge": JUDGE_OF[c],
+                    "metric": "reject_quoted_original_rate", "estimate": rej_frac,
+                    "ci_lo": np.nan, "ci_hi": np.nan, "n": k["REJECT"]})
+
+    L += ["", "**Willingness to excuse a contradiction the judge found** (acceptance rate, "
+              "first minus second)", "",
+          "| contrast | difference | 95% CI | reading |", "|---|---|---|---|"]
+    for a, b, why in (("A-strip", "A-floor", "M1: how much the notebook enables forgiveness"),
+                      ("B-strip", "B-floor", "M2: same"),
+                      ("C-strip", "C-floor", "M3: same"),
+                      ("A-self", "A-full", "H1: same bytes, same excuse available, "
+                                           "different willingness to use it")):
+        if not (by_cond[a] and by_cond[b]):
+            continue
+        diffs = np.array([d[a] - d[b] for d in draws])
+        diffs = diffs[~np.isnan(diffs)]
+        est = acc_rate(by_cond[a]) - acc_rate(by_cond[b])
+        lo, hi = ci(list(diffs))
+        L.append(f"| {a} - {b} | {est:+.3f} | [{lo:+.3f}, {hi:+.3f}] | {why} |")
+        out.append({"condition": f"{a} - {b}", "judge": "", "metric": "corrupted_acceptance_diff",
+                    "estimate": est, "ci_lo": lo, "ci_hi": hi, "n": len(by_cond[a])})
+    L.append("")
+    L.append(f"Capsule-cluster bootstrap over {len(caps)} capsules, {bootstrap} draws. With "
+             f"{n_q} rows the intervals are wide; this set is a floor test, not an estimate.")
+    L.append("")
+    return L, out
+
+
 # ------------------------------------------------------------------ figures --
-COLOURS = {"M1": "#2a78d6", "M2": "#eb6834"}
+COLOURS = {"M1": "#2a78d6", "M2": "#eb6834", "M3": "#2f8f63"}
 INK, MUTED, GRID, SURFACE = "#0b0b0b", "#52514e", "#e5e4e0", "#fcfcfb"
 
 
@@ -200,11 +470,12 @@ def make_fig1(point, draws, path_stem: Path) -> None:
         ax.spines["bottom"].set_color("#c3c2b7")
         ax.tick_params(axis="y", length=0, labelsize=8, colors=MUTED)
         ax.tick_params(axis="x", length=0, colors=MUTED)
-    fig.legend(handles=[Patch(color=COLOURS["M1"], label=f"M1 judge ({C.M1_MODEL})"),
-                        Patch(color=COLOURS["M2"], label=f"M2 judge ({C.M2_MODEL})"),
+    fig.legend(handles=[Patch(color=COLOURS["M1"], label=f"M1 ({C.M1_MODEL})"),
+                        Patch(color=COLOURS["M2"], label=f"M2 ({C.M2_MODEL}, minimal)"),
+                        Patch(color=COLOURS["M3"], label=f"M3 ({C.M3_MODEL}, medium)"),
                         Patch(facecolor=COLOURS["M1"], hatch="///", edgecolor="white",
                               label="A-self = deployed self-review")],
-               loc="lower center", ncol=3, frameon=False, fontsize=8, bbox_to_anchor=(0.5, -0.12))
+               loc="lower center", ncol=4, frameon=False, fontsize=8, bbox_to_anchor=(0.5, -0.14))
     fig.suptitle("Judge behaviour by condition", fontsize=11, x=0.01, ha="left", color=INK)
     fig.text(0.01, 0.905,
              "Error bars: 95% capsule-cluster bootstrap CI. -full sees the agent's argument, "
@@ -280,6 +551,9 @@ def main() -> None:
             r["label"] = src["label"]
             r["v_value"] = src.get("v_value", "")
     rows = [r for r in rows if r["label"] in ("correct", "incorrect")]
+    # defensive: corrupted rows live in their own file, but never pool them even if
+    # one is ever appended here by mistake.
+    rows = [r for r in rows if str(r.get("corrupted", "0")) != "1"]
     if not rows:
         raise SystemExit("no gradeable judgments")
     notebooks = {qid: (lab.get(qid) or {}).get("notebook_text", "")
@@ -301,7 +575,10 @@ def main() -> None:
     L = ["# Results", "",
          f"M1 = `{C.M1_MODEL}` (the stage-1 agent, and the judge in A-*; temperature 0).",
          f"M2 = `{C.M2_MODEL}` (judge only, B-*; provider-fixed temperature, "
-         f"reasoning_effort={C.M2_REASONING_EFFORT}).", "",
+         f"reasoning_effort={C.M2_REASONING_EFFORT}).",
+         f"M3 = `{C.M3_MODEL}` (judge only, C-*; provider-fixed temperature, "
+         f"reasoning_effort={C.M3_REASONING_EFFORT}). C-* receives byte-identical user "
+         f"content to the matching B-* condition.", "",
          "**wrong-answer acceptance rate** = false-positive rate = P(ACCEPT | answer is incorrect). "
          "**correct-answer rejection rate** = false-negative rate = P(REJECT | answer is correct). "
          "Balanced accuracy is the mean of correct-answer acceptance and true-reject, and is the "
@@ -400,6 +677,13 @@ def main() -> None:
               "in the notebook is evidence-based rejection. In v1 `A-self` confabulated in 43% of its "
               "rejections against 2-7% elsewhere, but v1 judges had no notebook to read.", ""]
 
+    reasoning_L, reasoning_metrics = reasoning_section(by_cond)
+    L += reasoning_L
+    out_metrics += reasoning_metrics
+
+    corrupted_L, corrupted_metrics = corrupted_section(args.bootstrap, args.seed)
+    L += corrupted_L
+
     make_fig1(point, draws, PAPER / "fig1")
     ece = make_fig2(rows, PAPER / "fig2_calibration")
     for c in CONDITIONS:
@@ -411,6 +695,8 @@ def main() -> None:
 
     for p, data, flds in (
         (C.RESULTS / "metrics.csv", out_metrics,
+         ["condition", "judge", "metric", "estimate", "ci_lo", "ci_hi", "n"]),
+        (C.RESULTS / "metrics_corrupted.csv", corrupted_metrics,
          ["condition", "judge", "metric", "estimate", "ci_lo", "ci_hi", "n"]),
         (C.RESULTS / "contrasts.csv", out_contrasts,
          ["contrast", "metric", "difference", "ci_lo", "ci_hi", "p_boot", "reading"]),
