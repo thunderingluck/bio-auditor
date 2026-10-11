@@ -5,11 +5,6 @@
 .venv/
 venv/
 
-# --- internal working notes ---------------------------------------------------
-# The agent spec / running log. Superseded for readers by README.md,
-# harness/README.md and results/summary.md.
-CLAUDE.md
-
 # --- derived: regenerate, do not commit ---------------------------------------
 # per-question block lists; src/collect.py rebuilds them from data/
 results/work/
@@ -42,5 +37,11 @@ __pycache__/
 .pytest_cache/
 .ipynb_checkpoints/
 .DS_Store
-# one-off backup written by judge.py migrate_header()
-results/judgments.pre-migration.csv
+# one-off backups written by judge.py migrate_header() and by re-queueing
+results/*.pre-migration.csv
+results/*.stale.csv
+
+# --- manuscript ---------------------------------------------------------------
+# the paper source is kept out of the repository; figures and their generator are in
+paper/main.tex
+paper/references.bib

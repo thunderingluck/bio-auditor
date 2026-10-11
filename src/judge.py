@@ -90,6 +90,16 @@ I = C.REVIEW_INSTRUCTION
 assert hashlib.sha256(I.encode("utf-8")).hexdigest() == C.REVIEW_INSTRUCTION_SHA256, \
     "the review instruction changed - every condition must share it byte for byte"
 
+I_V2 = C.GATE_INSTRUCTION_V2
+assert hashlib.sha256(I_V2.encode("utf-8")).hexdigest() == C.GATE_INSTRUCTION_V2_SHA256, \
+    "the v2 gate instruction changed - every condition must share it byte for byte"
+
+# Which instruction this process is using. Set once by main() before any payload is
+# built. It is a module global rather than a parameter so that every construction
+# path - payloads, assertions, the example dump - cannot disagree about it.
+ACTIVE_I = I
+INSTRUCTIONS = {"v1": I, "v2": I_V2}
+
 WRAPPER_WORK = (
     "Another agent was given the following task.\n\n"
     "TASK:\n{q}\n\n"
@@ -104,9 +114,12 @@ WRAPPER_FLOOR = (
     "{i}"
 )
 
+INSTRUCTION_VERSION = "v1"          # set by main(); recorded on every row
+
 FIELDS = [
     "question_id", "capsule_uuid", "eval_mode", "label", "v_value", "answer_raw",
     "condition", "judge", "judge_model", "reasoning_effort", "corrupted",
+    "instruction_version",
     "verdict", "verdict_parsed", "confidence",
     "confidence_parsed", "justification", "stop_reason",
     "input_tokens", "output_tokens", "reasoning_tokens", "cached", "cache_key", "verdict_text",
@@ -171,15 +184,15 @@ def build_all_payloads(work: dict) -> dict[str, tuple[str, dict]]:
     work_full = R.render_work(blocks, include_prose=True)
     work_strip = R.render_work(blocks, include_prose=False)
 
-    full_user = WRAPPER_WORK.format(q=q, w=work_full, v=v, i=I)
-    strip_user = WRAPPER_WORK.format(q=q, w=work_strip, v=v, i=I)
-    floor_user = WRAPPER_FLOOR.format(q=q, v=v, i=I)
+    full_user = WRAPPER_WORK.format(q=q, w=work_full, v=v, i=ACTIVE_I)
+    strip_user = WRAPPER_WORK.format(q=q, w=work_strip, v=v, i=ACTIVE_I)
+    floor_user = WRAPPER_FLOOR.format(q=q, v=v, i=ACTIVE_I)
     self_assistant = f"{work_full}\n\nANSWER: {v}"
 
     return {
         "A-self": m1_request([{"role": "user", "content": q},
                               {"role": "assistant", "content": self_assistant},
-                              {"role": "user", "content": I}]),
+                              {"role": "user", "content": ACTIVE_I}]),
         "A-full": m1_request([{"role": "user", "content": full_user}]),
         "A-strip": m1_request([{"role": "user", "content": strip_user}]),
         "A-floor": m1_request([{"role": "user", "content": floor_user}]),
@@ -227,11 +240,12 @@ def assert_invariants(qid: str, work: dict, P: dict[str, tuple[str, dict]]) -> N
     assert P["A-self"][1]["messages"][0]["content"] == work["question"], f"{qid}: A-self question turn"
 
     # I is terminal and identical everywhere
-    assert P["A-self"][1]["messages"][2]["content"] == I, f"{qid}: A-self instruction turn"
+    assert P["A-self"][1]["messages"][2]["content"] == ACTIVE_I, f"{qid}: A-self instruction turn"
     for c in CONDITIONS:
         if c == "A-self":
             continue
-        assert P[c][1]["messages"][-1]["content"].endswith(I), f"{qid}: {c} does not end with I"
+        assert P[c][1]["messages"][-1]["content"].endswith(ACTIVE_I), \
+            f"{qid}: {c} does not end with the active instruction"
 
     # models and sampling pinned
     for c in CONDITIONS:
@@ -292,7 +306,8 @@ def judge_one(row: dict, work: dict, condition: str, corrupted: int = 0) -> dict
     # differently and cannot collide with a main-grid cache entry. The tag says so
     # anyway, because a cache directory should be readable without diffing prompts.
     tag = {"stage": "judge_v2_corrupted" if corrupted else "judge_v2",
-           "condition": condition, "question_id": row["question_id"]}
+           "condition": condition, "question_id": row["question_id"],
+           "instruction": INSTRUCTION_VERSION}
     data = C.cached_call(provider, request, tag=tag)
     verdict, conf, just, v_ok, c_ok = parse_verdict(data["text"])
     rt = data["usage"].get("reasoning_tokens")
@@ -302,6 +317,7 @@ def judge_one(row: dict, work: dict, condition: str, corrupted: int = 0) -> dict
         "answer_raw": row["answer_raw"], "condition": condition,
         "judge": JUDGE_OF[condition], "judge_model": data["model"],
         "reasoning_effort": REASONING_EFFORT_OF[JUDGE_OF[condition]], "corrupted": corrupted,
+        "instruction_version": INSTRUCTION_VERSION,
         "verdict": verdict, "verdict_parsed": v_ok,
         "confidence": "" if conf is None else conf, "confidence_parsed": c_ok,
         "justification": just, "stop_reason": data["stop_reason"],
@@ -373,7 +389,21 @@ def main() -> None:
     ap.add_argument("--limit", type=int, default=None)
     ap.add_argument("--conditions", default=",".join(CONDITIONS))
     ap.add_argument("--concurrency", type=int, default=C.CONCURRENCY)
+    ap.add_argument("--instruction", choices=["v1", "v2"], default="v1",
+                    help="v1 = the original gate text; v2 names the object of the "
+                         "decision and forecloses the transcription-error reading")
     args = ap.parse_args()
+
+    global ACTIVE_I, INSTRUCTION_VERSION, OUT_CORRUPT
+    ACTIVE_I = INSTRUCTIONS[args.instruction]
+    INSTRUCTION_VERSION = args.instruction
+    if args.instruction != "v1":
+        OUT_CORRUPT = C.RESULTS / f"judgments_corrupted_{args.instruction}.csv"
+        if not args.corrupted and not args.assert_only:
+            raise SystemExit("--instruction v2 is only wired for --corrupted; the main "
+                             "grid was run under v1 and must not be mixed")
+    print(f"instruction: {args.instruction}  "
+          f"(sha {hashlib.sha256(ACTIVE_I.encode('utf-8')).hexdigest()[:12]})")
     conds = [c.strip() for c in args.conditions.split(",")]
     assert all(c in CONDITIONS for c in conds), conds
 
@@ -398,9 +428,11 @@ def main() -> None:
         print(f"CORRUPTED SET (reported separately, never pooled with the main grid)")
         print(f"rows={len(rows)} conditions={len(conds)} already_done={len(done)} todo={len(todo)}")
         print("every row is a former CORRECT answer whose value now contradicts its own notebook;")
-        print("the truth label is therefore 'incorrect'. An ACCEPT is NOT evidence the judge failed")
-        print("to look: 35 of 37 ACCEPTs in the first full run quoted the contradicted value. It is")
-        print("evidence the judge looked, found the contradiction, and excused it.")
+        print("the truth label is therefore 'incorrect'. Note that an ACCEPT here is NOT evidence")
+        print("the judge believed the wrong value: under v1, no notebook-equipped judgement")
+        print("asserted the corrupted value as the result. Under v1 the instruction did not say")
+        print("whether the submitted value or the analysis was being gated, and acceptance rates")
+        print("largely reflect that ambiguity; --instruction v2 removes it.")
         n_ok, n_fail = run_batch(todo, OUT_CORRUPT, 1, args.concurrency)
         print(f"done: ok={n_ok} fail={n_fail} -> {OUT_CORRUPT}")
         return

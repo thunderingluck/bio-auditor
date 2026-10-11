@@ -133,43 +133,31 @@ Conditions that actually spent reasoning tokens: `C-full`, `C-strip`, `C-floor`.
 Within those conditions the Spearman column is the honest answer to *does acceptance vary with reasoning spend*: it is computed over each condition's own calls, so judge identity is held fixed. Across conditions, compare `B-strip` with `C-strip` in the contrast table - identical bytes, minimal versus medium effort - and read it as a bound rather than an effect, because the two are different models as well as different efforts.
 
 
-## Manipulation check (corrupted answers) - REPORTED SEPARATELY
+## Corrupted-answer probe (data only; excluded from the paper)
 
-20 answers that were graded CORRECT, with the claimed value replaced by `y = -10x` so it contradicts the agent's own notebook. The notebook and the prose are byte-identical to the original run and `judge.py` asserts that on every row.
+20 answers that were graded correct, with the stated value replaced by `y = -10x` so it contradicts the notebook shown with it. Notebook and prose are byte-identical to the original run, and `judge.py` asserts this on every row.
 
-These rows are **constructed, not observed**, and are never pooled with the main grid. Every row's truth label is `incorrect`, so balanced accuracy is undefined here by construction and only the acceptance rate is meaningful.
+**Why it is excluded.** The v1 instruction does not say whether the submitted value or the analysis behind it is being gated, and on this set the two disagree. Several v1 acceptances describe the analysis as sound while explicitly calling the submitted value an error, so a v1 ACCEPT does not mean the judge endorsed the wrong value. The v2 instruction names the submitted value as the object of the decision.
 
-**What this set measures, corrected.** It was built to ask whether a judge reads the evidence at all. It does not measure that, because the judges do read it: **35 of the 37 ACCEPT verdicts quote the original value**, which was deleted from the answer and survives only in the notebook. Quoting it is proof the judge found the contradiction. What the set actually measures is what a judge does *after* finding one - and the overwhelming answer is that it grades the notebook and writes the answer off as a typo. So an ACCEPT here is leniency, not blindness, and the comparison across conditions is a comparison of willingness to forgive.
+**What it does show.** No notebook-equipped judgement in either run asserted the corrupted value as the result; judges given the notebook recover the true value. That rules out inattention to the evidence as an explanation for the main grid.
 
-**A limitation this exposes in the corruption rule.** `y = -10x` changes a sign and shifts a decimal, which is exactly what a transcription slip looks like. The judges' typo reading is therefore *reasonable*, and we should not score it as a mistake in absolute terms. The relative comparison is unaffected: every condition faces the identical question about the identical bytes, so a gap between them is a gap in willingness to excuse, not in the plausibility of the excuse. A corruption that cannot be read as clerical - a wrong gene, a flipped conclusion - would be needed to measure the absolute rate, and this run does not contain one.
+| condition | judge | v1 accepted | v2 accepted | v2 accept-propensity | v2 mean confidence when rejecting |
+|---|---|---|---|---|---|
+| A-self | M1 | 18/20 | 1/20 | 8.1 | 96.2 |
+| A-full | M1 | 4/20 | 2/20 | 11.9 | 96.8 |
+| A-strip | M1 | 3/20 | 0/20 | 2.9 | 97.1 |
+| A-floor | M1 | 0/20 | 0/20 | 14.0 | 86.0 |
+| B-full | M2 | 4/20 | 0/20 | 6.6 | 93.4 |
+| B-strip | M2 | 2/20 | 0/20 | 6.0 | 94.0 |
+| B-floor | M2 | 0/20 | 0/20 | 11.5 | 88.5 |
+| C-full | M3 | 0/20 | 0/20 | 0.0 | 100.0 |
+| C-strip | M3 | 0/20 | 0/20 | 0.0 | 100.0 |
+| C-floor | M3 | 0/20 | 0/20 | 1.4 | 98.6 |
 
-**The `-floor` conditions cannot construct the excuse.** They see no notebook, so they have no correct value to fall back on and no basis for a typo story. Their 0.000 is the absence of an escape hatch, not superior judgement. Read `-strip` minus `-floor` here as *how much the notebook enables forgiveness*, which is the opposite sign to how it reads in the main grid.
+Acceptances whose justification names the discrepancy being accepted:
 
-8 of 20 answers also restate their own derivation, so the corruption is visible in the answer text alone.
-
-| condition | judge | accepted | rejected | unparseable | acceptance rate | 95% CI | of ACCEPTs, quoted the notebook's value | of REJECTs, quoted it |
-|---|---|---|---|---|---|---|---|---|
-| A-self | M1 | 18 | 2 | 0 | 0.900 | [0.733, 1.000] | 16/18 | 2/2 |
-| A-full | M1 | 5 | 15 | 0 | 0.250 | [0.067, 0.417] | 5/5 | 15/15 |
-| A-strip | M1 | 5 | 15 | 0 | 0.250 | [0.067, 0.417] | 5/5 | 15/15 |
-| A-floor | M1 | 0 | 20 | 0 | 0.000 | [0.000, 0.000] | - | 5/20 |
-| B-full | M2 | 6 | 14 | 0 | 0.300 | [0.071, 0.478] | 6/6 | 14/14 |
-| B-strip | M2 | 3 | 17 | 0 | 0.150 | [0.000, 0.286] | 3/3 | 16/17 |
-| B-floor | M2 | 0 | 20 | 0 | 0.000 | [0.000, 0.000] | - | 6/20 |
-| C-full | M3 | 0 | 20 | 0 | 0.000 | [0.000, 0.000] | - | 17/20 |
-| C-strip | M3 | 0 | 20 | 0 | 0.000 | [0.000, 0.000] | - | 17/20 |
-| C-floor | M3 | 0 | 20 | 0 | 0.000 | [0.000, 0.000] | - | 7/20 |
-
-**Willingness to excuse a contradiction the judge found** (acceptance rate, first minus second)
-
-| contrast | difference | 95% CI | reading |
-|---|---|---|---|
-| A-strip - A-floor | +0.250 | [+0.067, +0.417] | M1: how much the notebook enables forgiveness |
-| B-strip - B-floor | +0.150 | [+0.000, +0.286] | M2: same |
-| C-strip - C-floor | +0.000 | [+0.000, +0.000] | M3: same |
-| A-self - A-full | +0.650 | [+0.471, +0.800] | H1: same bytes, same excuse available, different willingness to use it |
-
-Capsule-cluster bootstrap over 9 capsules, 5000 draws. With 20 rows the intervals are wide; this set is a floor test, not an estimate.
+- v1: 18 of 31
+- v2: 3 of 3
 
 **Expected calibration error** (lower is better): `A-self` 0.391, `A-full` 0.413, `A-strip` 0.425, `A-floor` 0.297, `B-full` 0.485, `B-strip` 0.499, `B-floor` 0.271, `C-full` 0.320, `C-strip` 0.390, `C-floor` 0.328
 

@@ -54,8 +54,8 @@ The justifications were checked by pattern (table in `summary.md`):
 The TASK text shown to every judge is the stage-1 prompt, which tells the model it has no data
 access and should give a best estimate. Every judge therefore treats every answer as an
 unverifiable guess and rejects it. The judgment is dominated by the framing of the task, not by
-the answer or the trace. This is a design problem, not a prompt-tuning problem, and CLAUDE.md
-says not to iterate prompts until a gap appears, so nothing was changed.
+the answer or the trace. This is a design problem, not a prompt-tuning problem, and the study protocol
+forbids iterating prompts until a gap appears, so nothing was changed.
 
 One descriptive observation survives and may be worth keeping: in condition A, M1 reviewing its
 own turn frequently rejects by asserting that "the actual value ... is different from X" — a
@@ -65,7 +65,7 @@ judge that accepts anything, and it accepts wrong answers at a higher rate than 
 (36 vs 13). Genuinely derived correct answers were accepted by A' 34% of the time, synthetic
 ones 2%; judges are not fooled by the injected derivations.
 
-## Deviations from CLAUDE.md as originally written (all recorded in CLAUDE.md §5)
+## Deviations from the original study protocol
 
 1. M1 is Sonnet 4.6, not Haiku 4.5 (Eva's request), and not Sonnet 5, which rejects `temperature`.
 2. M2 judges at temperature 1: OpenAI returns 400 for anything else on GPT-5 mini.

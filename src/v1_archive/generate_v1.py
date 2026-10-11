@@ -5,7 +5,7 @@ N samples per question. Writes results/answers.csv (append per row, resumable).
 
 Two sources of answers, flagged in the `source` column:
   natural           M1 answers the question cold (the real experiment).
-  synthetic_correct CLAUDE.md section 7 contingency: the ideal answer is injected and M1 is
+  synthetic_correct contingency for a thin correct-answer pool: the ideal answer is injected and M1 is
                     asked to write a derivation for it. One per question, sample_idx 0.
                     These rows exist only so judges see some correct answers; analysis
                     reports metrics with and without them.

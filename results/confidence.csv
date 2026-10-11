@@ -1,0 +1,14 @@
+analysis,condition,n,balanced_accuracy,auroc,auroc_ci_lo,auroc_ci_hi,conf_gap_within_accept,paired_difference,paired_ci_lo,paired_ci_hi
+verdict_vs_confidence,A-self,116,0.5391,0.7309,0.5926,0.8398,6.53,,,
+verdict_vs_confidence,A-full,116,0.5497,0.7514,0.6078,0.8573,7.41,,,
+verdict_vs_confidence,A-strip,116,0.5391,0.773,0.6313,0.8713,8.37,,,
+verdict_vs_confidence,A-floor,116,0.5239,0.477,0.3788,0.5795,3.95,,,
+verdict_vs_confidence,B-full,116,0.5143,0.5585,0.4475,0.6877,0.78,,,
+verdict_vs_confidence,B-strip,116,0.5,0.6601,0.5586,0.7556,2.8,,,
+verdict_vs_confidence,B-floor,116,0.5475,0.5109,0.3894,0.6292,13.0,,,
+verdict_vs_confidence,C-full,116,0.6634,0.7408,0.613,0.8404,2.38,,,
+verdict_vs_confidence,C-strip,116,0.6059,0.7252,0.6053,0.8226,2.89,,,
+verdict_vs_confidence,C-floor,116,0.5028,0.5144,0.3951,0.6056,1.31,,,
+self_review_paired,A-self - A-full (all gradeable),116,,,,,,-2.5517,-3.4276,-1.6694
+self_review_paired,A-self - A-full (wrong answers),70,,,,,,-2.2571,-3.6233,-0.9997
+self_review_paired,A-self - A-full (correct answers),46,,,,,,-3.0,-4.0219,-1.8371

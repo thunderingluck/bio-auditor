@@ -3,24 +3,25 @@
 THE QUESTION THIS WAS BUILT TO ANSWER. The main grid shows judges accepting 90-100%
 of wrong answers once they can see a notebook. Two readings survive that: either the
 judges read the evidence and are bad at it, or they do not read it at all and are
-cued by the presence of competent-looking code.
+cued by the presence of competent-looking code. Answers that contradict their own
+notebook separate the two.
 
-THE ANSWER IT ACTUALLY GAVE, which is not the one this file was written expecting.
-The judges read it. 35 of the 37 ACCEPT verdicts on this set quote the original
-value - a number deleted from the answer, surviving only in the notebook - so they
-located the contradiction and then declined to act on it, calling it a typo or a
-formatting artefact. An ACCEPT here is leniency, not blindness. The earlier claim
-in this docstring, that sustained acceptance "is not looking", is contradicted by
-the data this set produced; analyze.py now measures the quote rate rather than
-assuming either reading.
+WHAT IT SHOWED. The judges read the evidence. Under both gate instructions, no
+judgement that was shown the notebook asserted the corrupted value as the result;
+every one that named a value named the notebook's. The probe is therefore a validity
+check on the main grid, and is excluded from the paper's claims.
 
-A LIMITATION THIS EXPOSED IN THE RULE BELOW. y = -10x flips a sign and shifts a
-decimal, which is what a transcription slip looks like, so the judges' typo reading
-is reasonable and the absolute acceptance rate should not be read as error. The
-comparison across conditions is unaffected - identical bytes, identical available
-excuse - so a gap between conditions is a gap in willingness to forgive. Measuring
-an absolute rate would need a corruption no clerical story can explain: a wrong gene
-name, an inverted conclusion. This run does not contain one.
+WHY IT CANNOT MEASURE LENIENCY UNDER THE v1 INSTRUCTION. v1 says the result "is about
+to be used as the basis for the next step" without saying whether the submitted value
+or the analysis behind it is being gated. On this set the two disagree, and judges
+resolved the ambiguity differently: several accepted while explicitly calling the
+submitted value an error. `judge.py --instruction v2` names the submitted value as the
+object of the decision; under it, acceptances fall to near zero.
+
+A LIMITATION IN THE RULE BELOW. y = -10x flips a sign and shifts a decimal, which is
+what a transcription slip looks like. An absolute acceptance rate would need a
+corruption no clerical story can explain, such as a wrong gene name or an inverted
+conclusion.
 
 REPORTED SEPARATELY, ALWAYS. These rows are constructed, not observed. Pooling them
 with the main grid would inflate the wrong-answer pool with items whose difficulty
@@ -128,6 +129,42 @@ def same_value(a: float | None, b: float | None) -> bool:
     return abs(a - b) <= abs(b) * 1e-9
 
 
+def decimals(literal: str) -> int:
+    body = literal.replace(",", "").split("e")[0].split("E")[0]
+    return len(body.split(".")[1]) if "." in body else 0
+
+
+def restates(literal: str, value: float | None, target: float) -> bool:
+    """Does this token convey the claimed value, however it is written?
+
+    A strict equality test is not enough. Real answers restate their own value in
+    three other shapes, and the first version of this script missed all three,
+    leaving the correct number sitting in the 'corrupted' answer:
+
+      percent form        0.3952  written as  39.52%
+      higher precision    0.0865  written as  0.08652951777742668
+      lower precision     0.0025  written as  approximately 0.002
+
+    All three are caught below: each scaling is tested for near-equality, and for
+    whether the target ROUNDED TO THIS TOKEN'S precision equals the token, which is
+    what a coarser restatement is.
+    """
+    if value is None or target == 0:
+        return False
+    d = decimals(literal)
+    for scale in (1.0, 100.0, 0.01):
+        t = abs(target) * scale
+        if abs(abs(value) - t) <= t * 2e-2:
+            return True
+        # v is t rounded to d decimals iff they differ by at most half a unit in
+        # that last place. Expressed as a tolerance rather than round(t, d) == v,
+        # because float representation makes round(0.0025, 3) return 0.003 and the
+        # equality form then silently misses "approximately 0.002".
+        if d <= 12 and abs(t - abs(value)) <= 0.5 * (10.0 ** -d) * 1.01 and t != 0:
+            return True
+    return False
+
+
 def corrupt_literal(lit: str) -> str:
     """Apply y = -10x to a numeric literal, keeping its notation.
 
@@ -186,7 +223,7 @@ def substitute(answer: str, target: float) -> tuple[str, int, int]:
     out, pos, n_rep, n_other = [], 0, 0, 0
     for m in G.NUM_RE.finditer(answer):
         t = as_float(m.group())
-        if t is not None and same_value(abs(t), abs(target)):
+        if restates(m.group(), t, target):
             out.append(answer[pos:m.start()])
             out.append(corrupt_literal(m.group()))
             pos = m.end()
@@ -195,6 +232,19 @@ def substitute(answer: str, target: float) -> tuple[str, int, int]:
             n_other += 1
     out.append(answer[pos:])
     return "".join(out), n_rep, n_other
+
+
+def residual_leak(answer: str, target: float) -> list[str]:
+    """Anything left in the corrupted answer that still conveys the correct value.
+
+    This is a post-condition on substitute(), using the same restates() rule: after
+    corruption no token may still convey the correct value. A looser net (any number
+    within 25%) was tried and rejected - it flagged coincidental neighbours such as
+    0.4900 beside a claimed 0.4287, discarding sound rows for proximity rather than
+    for restatement.
+    """
+    return [m.group() for m in G.NUM_RE.finditer(answer)
+            if restates(m.group(), as_float(m.group()), target)]
 
 
 def count_value(text: str, target: float) -> int:
@@ -240,7 +290,26 @@ def build(rows: list[dict], n: int) -> tuple[list[dict], list[tuple[str, str]]]:
 
     keep.sort(key=lambda r: (int(r.get("notebook_chars") or 0),
                              C._qid_sort_key(r["question_id"])))
-    chosen = keep[:n]
+
+    # Walk the ranking and take the first n rows that survive corruption cleanly.
+    # A row whose answer still conveys the correct value after substitution is not a
+    # contradiction, so it is skipped and the next candidate is promoted.
+    chosen, leaky = [], []
+    for r in keep:
+        if len(chosen) == n:
+            break
+        v = as_float(r["v_value"])
+        new_ans, _, _ = substitute(r["answer_raw"], v)
+        res = residual_leak(new_ans, v)
+        if res:
+            leaky.append((r["question_id"], res))
+            continue
+        chosen.append(r)
+
+    if leaky:
+        print("rows skipped because the correct value survives corruption:")
+        for qid, res in leaky:
+            print(f"  {qid:12} residual: {', '.join(res[:4])}")
 
     out = []
     for rank, r in enumerate(chosen, 1):
@@ -260,6 +329,8 @@ def build(rows: list[dict], n: int) -> tuple[list[dict], list[tuple[str, str]]]:
         verdict, why = G.grade_value(new_v, r["ideal"], r["eval_mode"])
         assert verdict == "incorrect", \
             f"{r['question_id']}: corrupted value {new_v} still grades {verdict} ({why})"
+        assert not residual_leak(new_ans, v), \
+            f"{r['question_id']}: correct value still readable in the corrupted answer"
 
         out.append({
             "question_id": r["question_id"], "capsule_uuid": r["capsule_uuid"],

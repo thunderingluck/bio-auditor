@@ -1,6 +1,6 @@
 """Stage 1 runner for bio-auditor.
 
-Wraps BixBench's TrajectoryGenerator. Two deliberate changes, both recorded in CLAUDE.md:
+Wraps BixBench's TrajectoryGenerator. Two deliberate changes:
 
 1. WHICH questions run: only the 122 str_verifier / range_verifier rows, so ground
    truth stays deterministic.

@@ -4,7 +4,7 @@ This module exists so that the `-strip` conditions are provably `-full` minus th
 prose, rather than hopefully so. Everything downstream builds its prompt from the
 same `Block` list; `-strip` is `render_work(blocks, include_prose=False)`.
 
-Two invariants that must not be broken (see CLAUDE.md §6):
+Two invariants that must not be broken:
 
 1. Truncation is computed from N ALONE, never from the assembled prompt. If you
    truncate the assembled `-full` and `-strip` strings to a common budget the cut

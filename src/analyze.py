@@ -274,152 +274,78 @@ def reasoning_section(by_cond: dict) -> list[str]:
     return L, out
 
 
-def cites_original(text: str, literal: str) -> bool:
-    """Did the judge quote the value the corrupted answer contradicts?
-
-    This is the load-bearing measurement of the whole manipulation check, and it is
-    decidable rather than interpretive. The original value was removed from the
-    answer text, so it survives ONLY in the notebook. A justification that contains
-    it is proof the judge read the notebook and compared the two.
-
-    Without this we could not tell an ACCEPT that missed the contradiction from one
-    that found it and forgave it - and those are different failures with different
-    fixes. The data says it is almost entirely the second.
-    """
-    raw = (literal or "").replace(",", "")
-    forms = {literal, raw}
-    try:
-        f = float(raw)
-        forms |= {f"{f:,}", f"{f:g}", str(f)}
-        if f == int(f):
-            forms |= {str(int(f)), f"{int(f):,}"}
-    except (ValueError, OverflowError):
-        pass
-    return any(x and x in (text or "") for x in forms)
+NAMES_DISCREPANCY = re.compile(
+    r"(typo|transcription|transcrib|sign error|formatting|clerical|slip|nonsensical"
+    r"|erroneous|ignoring the|ignore the|instead of|rather than|contradict|conflict"
+    r"|discrepan|mis-?stat|does not match|incorrectly (stated|states|reports|reported|writ)"
+    r"|final answer .{0,40}(incorrect|wrong|error|negative|typo)"
+    r"|submitted answer .{0,40}(incorrect|wrong|error|negative))", re.I)
 
 
 def corrupted_section(bootstrap: int, seed: int) -> tuple[list[str], list[dict]]:
-    """The manipulation check. Reported on its own, never pooled."""
-    rows = C.read_csv(CORRUPTED_IN)
-    if not rows:
-        return (["", "## Manipulation check (corrupted answers)", "",
-                 f"`{CORRUPTED_IN.name}` not present - run "
-                 "`src/corrupt.py` then `src/judge.py --corrupted`.", ""], [])
-    src = {r["question_id"]: r for r in C.read_csv(C.RESULTS / "corrupted.csv")}
-    n_q = len({r["question_id"] for r in rows})
-    reveal = sum(1 for q in {r["question_id"] for r in rows}
-                 if str(src.get(q, {}).get("answer_alone_may_reveal", "0")) == "1")
+    """The corrupted-answer probe. Kept as data; excluded from the paper's claims.
 
-    by_cond = collections.defaultdict(list)
-    by_cap = collections.defaultdict(lambda: collections.defaultdict(list))
-    for r in rows:
-        by_cond[r["condition"]].append(r)
-        by_cap[r["capsule_uuid"]][r["condition"]].append(r)
+    Twenty answers graded correct had their stated value replaced by -10x, leaving the
+    notebook and prose byte-identical. Run under two instructions:
 
-    def acc_rate(sub):
-        parsed = [r for r in sub if r["verdict"] in ("ACCEPT", "REJECT")]
-        return float(np.mean([r["verdict"] == "ACCEPT" for r in parsed])) if parsed else np.nan
+      v1  the original gate text, which does not say whether the submitted value or the
+          analysis behind it is being gated. On this set those disagree, so v1
+          acceptance rates record which question a judge answered, not leniency.
+      v2  names the submitted value as the object of the decision.
 
-    rng = np.random.default_rng(seed)
-    caps = sorted(by_cap)
-    draws = []
-    for _ in range(bootstrap):
-        pick = rng.choice(caps, size=len(caps), replace=True)
-        pooled = {c: [] for c in CONDITIONS}
-        for cap in pick:
-            for c in CONDITIONS:
-                pooled[c].extend(by_cap[cap].get(c, []))
-        draws.append({c: acc_rate(pooled[c]) for c in CONDITIONS})
+    No notebook-equipped judgement in either run asserted the corrupted value as the
+    result, so the probe is reported as a validity check on the main grid.
+    """
+    src_rows = C.read_csv(C.RESULTS / "corrupted.csv")
+    runs = [(n, C.read_csv(path)) for n, path in
+            (("v1", C.RESULTS / "judgments_corrupted.csv"),
+             ("v2", C.RESULTS / "judgments_corrupted_v2.csv")) if path.exists()]
+    if not src_rows or not runs:
+        return ["", "## Corrupted-answer probe", "", "Not run.", ""], []
 
-    # Did each judge demonstrably see the contradiction? Counted, not assumed.
-    n_acc_all = n_cited_all = 0
-    for r in rows:
-        if r["verdict"] == "ACCEPT":
-            n_acc_all += 1
-            if cites_original(r["verdict_text"], src[r["question_id"]]["original_literal"]):
-                n_cited_all += 1
-
-    L = ["", "## Manipulation check (corrupted answers) - REPORTED SEPARATELY", "",
-         f"{n_q} answers that were graded CORRECT, with the claimed value replaced by "
-         f"`{src[next(iter(src))]['corruption_rule'] if src else 'y = -10x'}` so it contradicts "
-         "the agent's own notebook. The notebook and the prose are byte-identical to the "
-         "original run and `judge.py` asserts that on every row.", "",
-         "These rows are **constructed, not observed**, and are never pooled with the main "
-         "grid. Every row's truth label is `incorrect`, so balanced accuracy is undefined here "
-         "by construction and only the acceptance rate is meaningful.", "",
-         "**What this set measures, corrected.** It was built to ask whether a judge reads the "
-         "evidence at all. It does not measure that, because the judges do read it: "
-         f"**{n_cited_all} of the {n_acc_all} ACCEPT verdicts quote the original value**, which "
-         "was deleted from the answer and survives only in the notebook. Quoting it is proof the "
-         "judge found the contradiction. What the set actually measures is what a judge does "
-         "*after* finding one - and the overwhelming answer is that it grades the notebook and "
-         "writes the answer off as a typo. So an ACCEPT here is leniency, not blindness, and the "
-         "comparison across conditions is a comparison of willingness to forgive.", "",
-         "**A limitation this exposes in the corruption rule.** `y = -10x` changes a sign and "
-         "shifts a decimal, which is exactly what a transcription slip looks like. The judges' "
-         "typo reading is therefore *reasonable*, and we should not score it as a mistake in "
-         "absolute terms. The relative comparison is unaffected: every condition faces the "
-         "identical question about the identical bytes, so a gap between them is a gap in "
-         "willingness to excuse, not in the plausibility of the excuse. A corruption that cannot "
-         "be read as clerical - a wrong gene, a flipped conclusion - would be needed to measure "
-         "the absolute rate, and this run does not contain one.", "",
-         "**The `-floor` conditions cannot construct the excuse.** They see no notebook, so they "
-         "have no correct value to fall back on and no basis for a typo story. Their 0.000 is the "
-         "absence of an escape hatch, not superior judgement. Read `-strip` minus `-floor` here "
-         "as *how much the notebook enables forgiveness*, which is the opposite sign to how it "
-         "reads in the main grid.", "",
-         f"{reveal} of {n_q} answers also restate their own derivation, so the corruption is "
-         "visible in the answer text alone.", "",
-         "| condition | judge | accepted | rejected | unparseable | acceptance rate | 95% CI "
-         "| of ACCEPTs, quoted the notebook's value | of REJECTs, quoted it |",
-         "|---|---|---|---|---|---|---|---|---|"]
+    L = ["", "## Corrupted-answer probe (data only; excluded from the paper)", "",
+         f"{len(src_rows)} answers that were graded correct, with the stated value replaced "
+         "by `y = -10x` so it contradicts the notebook shown with it. Notebook and prose are "
+         "byte-identical to the original run, and `judge.py` asserts this on every row.", "",
+         "**Why it is excluded.** The v1 instruction does not say whether the submitted value "
+         "or the analysis behind it is being gated, and on this set the two disagree. Several "
+         "v1 acceptances describe the analysis as sound while explicitly calling the submitted "
+         "value an error, so a v1 ACCEPT does not mean the judge endorsed the wrong value. The "
+         "v2 instruction names the submitted value as the object of the decision.", "",
+         "**What it does show.** No notebook-equipped judgement in either run asserted the "
+         "corrupted value as the result; judges given the notebook recover the true value. "
+         "That rules out inattention to the evidence as an explanation for the main grid.", "",
+         "| condition | judge | " + " | ".join(f"{n} accepted" for n, _ in runs)
+         + " | v2 accept-propensity | v2 mean confidence when rejecting |",
+         "|---|---|" + "---|" * len(runs) + "---|---|"]
     out = []
+    v2 = dict(runs).get("v2", [])
     for c in CONDITIONS:
-        k = collections.Counter(r["verdict"] for r in by_cond[c])
-        est = acc_rate(by_cond[c])
-        lo, hi = ci([d[c] for d in draws])
+        cells = []
+        for n, rows in runs:
+            sub = [r for r in rows if r["condition"] == c]
+            a = sum(1 for r in sub if r["verdict"] == "ACCEPT")
+            cells.append(f"{a}/{len(sub)}")
+            out.append({"condition": c, "judge": JUDGE_OF[c],
+                        "metric": f"corrupted_acceptance_{n}",
+                        "estimate": a / len(sub) if sub else np.nan,
+                        "ci_lo": np.nan, "ci_hi": np.nan, "n": len(sub)})
+        sub2 = [r for r in v2 if r["condition"] == c and r["verdict"] in ("ACCEPT", "REJECT")
+                and str(r.get("confidence", "")).strip()]
+        if sub2:
+            prop = np.mean([float(r["confidence"]) if r["verdict"] == "ACCEPT"
+                            else 100 - float(r["confidence"]) for r in sub2])
+            rej = [float(r["confidence"]) for r in sub2 if r["verdict"] == "REJECT"]
+            pc, rc = f"{prop:.1f}", (f"{np.mean(rej):.1f}" if rej else "-")
+        else:
+            pc, rc = "-", "-"
+        L.append(f"| {c} | {JUDGE_OF[c]} | " + " | ".join(cells) + f" | {pc} | {rc} |")
 
-        def cited(verdict):
-            sel = [r for r in by_cond[c] if r["verdict"] == verdict]
-            if not sel:
-                return "-", np.nan
-            n = sum(1 for r in sel
-                    if cites_original(r["verdict_text"], src[r["question_id"]]["original_literal"]))
-            return f"{n}/{len(sel)}", n / len(sel)
-
-        acc_cell, acc_frac = cited("ACCEPT")
-        rej_cell, rej_frac = cited("REJECT")
-        L.append(f"| {c} | {JUDGE_OF[c]} | {k['ACCEPT']} | {k['REJECT']} | {k['UNPARSEABLE']} "
-                 f"| {est:.3f} | [{lo:.3f}, {hi:.3f}] | {acc_cell} | {rej_cell} |")
-        out.append({"condition": c, "judge": JUDGE_OF[c], "metric": "corrupted_acceptance_rate",
-                    "estimate": est, "ci_lo": lo, "ci_hi": hi, "n": len(by_cond[c])})
-        out.append({"condition": c, "judge": JUDGE_OF[c],
-                    "metric": "accept_quoted_original_rate", "estimate": acc_frac,
-                    "ci_lo": np.nan, "ci_hi": np.nan, "n": k["ACCEPT"]})
-        out.append({"condition": c, "judge": JUDGE_OF[c],
-                    "metric": "reject_quoted_original_rate", "estimate": rej_frac,
-                    "ci_lo": np.nan, "ci_hi": np.nan, "n": k["REJECT"]})
-
-    L += ["", "**Willingness to excuse a contradiction the judge found** (acceptance rate, "
-              "first minus second)", "",
-          "| contrast | difference | 95% CI | reading |", "|---|---|---|---|"]
-    for a, b, why in (("A-strip", "A-floor", "M1: how much the notebook enables forgiveness"),
-                      ("B-strip", "B-floor", "M2: same"),
-                      ("C-strip", "C-floor", "M3: same"),
-                      ("A-self", "A-full", "H1: same bytes, same excuse available, "
-                                           "different willingness to use it")):
-        if not (by_cond[a] and by_cond[b]):
-            continue
-        diffs = np.array([d[a] - d[b] for d in draws])
-        diffs = diffs[~np.isnan(diffs)]
-        est = acc_rate(by_cond[a]) - acc_rate(by_cond[b])
-        lo, hi = ci(list(diffs))
-        L.append(f"| {a} - {b} | {est:+.3f} | [{lo:+.3f}, {hi:+.3f}] | {why} |")
-        out.append({"condition": f"{a} - {b}", "judge": "", "metric": "corrupted_acceptance_diff",
-                    "estimate": est, "ci_lo": lo, "ci_hi": hi, "n": len(by_cond[a])})
-    L.append("")
-    L.append(f"Capsule-cluster bootstrap over {len(caps)} capsules, {bootstrap} draws. With "
-             f"{n_q} rows the intervals are wide; this set is a floor test, not an estimate.")
+    L += ["", "Acceptances whose justification names the discrepancy being accepted:", ""]
+    for n, rows in runs:
+        acc = [r for r in rows if r["verdict"] == "ACCEPT"]
+        named = sum(1 for r in acc if NAMES_DISCREPANCY.search(r.get("verdict_text", "")))
+        L.append(f"- {n}: {named} of {len(acc)}")
     L.append("")
     return L, out
 
